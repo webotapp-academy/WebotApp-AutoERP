@@ -1,0 +1,2799 @@
+# MASTER DEVELOPMENT PROMPT
+# AUTOMOBILE GARAGE MANAGEMENT ERP
+## Complete Automobile Workshop & Service Center Management Software
+### Laravel + PHP + MySQL | Production-Ready Enterprise Application
+
+---
+
+# 1. PROJECT OVERVIEW
+
+Act as a senior Laravel software architect, automobile workshop management consultant, database architect, automotive service operations expert, financial systems developer, and UI/UX designer.
+
+Your task is to develop a complete, professional, production-ready Automobile Garage Management ERP using Laravel and MySQL.
+
+The application must manage the complete lifecycle of an automobile workshop, from customer registration and vehicle booking to vehicle inspection, job card creation, repair estimation, spare parts allocation, mechanic assignment, service execution, quality inspection, billing, payment collection, and customer follow-up.
+
+This must be a fully functional business management application, not a static dashboard, demo UI, or collection of disconnected CRUD pages.
+
+The system should offer functionality comparable to professional automotive dealer management systems and modern workshop management platforms.
+
+## 1.1 Target Market
+
+Primary market: India.
+
+Target businesses:
+
+- Multi-brand automobile garages.
+- Independent car workshops.
+- Two-wheeler service centers.
+- Four-wheeler service centers.
+- Authorized automobile dealerships.
+- Commercial vehicle workshops.
+- Truck and bus repair workshops.
+- Bike repair shops.
+- Automobile detailing centers.
+- Car washing centers.
+- Tire and wheel alignment centers.
+- Automobile electrical workshops.
+- AC repair workshops.
+- Denting and painting workshops.
+- Engine repair workshops.
+- Fleet maintenance workshops.
+
+The architecture must support different types of vehicles and workshop operations through configurable settings.
+
+## 1.2 Technology Stack
+
+| Component | Technology |
+|---|---|
+| Backend | Latest stable Laravel |
+| Programming Language | PHP 8.3+ |
+| Database | MySQL 8+ |
+| Frontend | Laravel Blade |
+| Interactive UI | Livewire |
+| CSS | Tailwind CSS |
+| JavaScript | Alpine.js |
+| Charts | Chart.js |
+| Authentication | Laravel Authentication |
+| Authorization | Role-Based Access Control |
+| PDF | DomPDF or compatible PDF library |
+| Excel | Laravel Excel |
+| Queue | Laravel Queue |
+| Cache | Redis where available |
+| API | Laravel REST API |
+| Version Control | Git |
+
+Use stable and compatible package versions.
+
+The software must run on a standard Linux VPS with Nginx or Apache.
+
+## 1.3 Application Design Principles
+
+- Modular Laravel architecture.
+- Reusable components.
+- Service-oriented business logic.
+- Normalized MySQL database.
+- Transaction-safe inventory operations.
+- Secure authentication.
+- Role-based access.
+- Audit logging.
+- Responsive interface.
+- Multi-branch support.
+- API-ready architecture.
+- Scalable SaaS-ready architecture.
+
+---
+
+# 2. APPLICATION STRUCTURE AND NAVIGATION
+
+Create a modern, premium automobile workshop ERP interface.
+
+## 2.1 Main Sidebar
+
+Create the following navigation:
+
+1. Dashboard
+2. Appointments
+3. Customers
+4. Vehicles
+5. Vehicle Inspections
+6. Job Cards
+7. Service Management
+8. Repair Estimates
+9. Workshop Operations
+10. Mechanics & Technicians
+11. Spare Parts Inventory
+12. Purchase Management
+13. Vendors
+14. Service Packages
+15. Billing & Invoices
+16. Payments
+17. Insurance & Warranty
+18. Customer CRM
+19. Vehicle Pickup & Delivery
+20. Expenses
+21. Accounts
+22. Reports & Analytics
+23. Notifications
+24. Document Management
+25. User Management
+26. Settings
+
+The navigation must be permission-based.
+
+## 2.2 Main Application Layout
+
+Implement:
+
+- Collapsible left sidebar.
+- Top navigation.
+- Global search.
+- Quick-create buttons.
+- Notifications.
+- User profile.
+- Branch selector.
+- Date filter.
+- Breadcrumb navigation.
+- Light and dark themes.
+- Responsive mobile navigation.
+
+## 2.3 Global Quick Actions
+
+Provide quick actions for:
+
+- New customer.
+- Register vehicle.
+- Book appointment.
+- Create job card.
+- Create estimate.
+- Record payment.
+- Create invoice.
+- Add spare part.
+- Create purchase order.
+- Add expense.
+
+---
+
+# 3. COMPANY, BRANCH AND WORKSHOP MANAGEMENT
+
+Support multiple companies, branches, and service locations.
+
+## 3.1 Company Profile
+
+Fields:
+
+- Company name.
+- Business logo.
+- Registration number.
+- GSTIN.
+- PAN.
+- Business type.
+- Contact number.
+- Email.
+- Website.
+- Registered address.
+- State.
+- City.
+- PIN code.
+- Bank information.
+- Invoice prefix.
+- Financial year.
+- Currency.
+- Tax settings.
+
+## 3.2 Branch Management
+
+Allow an organization to manage multiple garage locations.
+
+Fields:
+
+- Branch name.
+- Branch code.
+- Address.
+- Contact details.
+- Branch manager.
+- GSTIN.
+- Operating hours.
+- Service categories.
+- Workshop capacity.
+- Number of service bays.
+- Assigned employees.
+- Assigned inventory warehouses.
+
+Features:
+
+- Branch-wise dashboard.
+- Branch-wise revenue.
+- Branch-wise expenses.
+- Branch-wise inventory.
+- Branch-wise job cards.
+- Branch-wise employee performance.
+- Branch-wise reports.
+
+Support centralized administration and branch-level access control.
+
+---
+
+# 4. USER MANAGEMENT AND ROLE-BASED ACCESS CONTROL
+
+Create complete user and employee management.
+
+## 4.1 Predefined Roles
+
+1. Super Administrator.
+2. Company Administrator.
+3. Garage Owner.
+4. Branch Manager.
+5. Service Manager.
+6. Service Advisor.
+7. Workshop Supervisor.
+8. Senior Mechanic.
+9. Mechanic.
+10. Technician.
+11. Electrician.
+12. Denting and Painting Technician.
+13. Inventory Manager.
+14. Storekeeper.
+15. Purchase Manager.
+16. Accountant.
+17. Cashier.
+18. Customer Relationship Executive.
+19. Quality Inspector.
+20. Pickup and Delivery Executive.
+
+Allow custom roles.
+
+## 4.2 Permissions
+
+Control permissions for:
+
+- Viewing records.
+- Creating records.
+- Editing records.
+- Deleting unposted records.
+- Approving estimates.
+- Approving discounts.
+- Assigning mechanics.
+- Issuing spare parts.
+- Closing job cards.
+- Creating invoices.
+- Recording payments.
+- Viewing financial reports.
+- Managing settings.
+
+Example:
+
+A mechanic should only see assigned job cards and update work progress.
+
+A cashier should be able to generate invoices and record payments but must not modify repair estimates or spare parts purchase prices.
+
+## 4.3 Employee Management
+
+Employee information:
+
+- Employee ID.
+- Full name.
+- Profile photo.
+- Phone.
+- Email.
+- Address.
+- Department.
+- Designation.
+- Joining date.
+- Salary.
+- Skills.
+- Certifications.
+- Assigned branch.
+- Assigned shift.
+- Employment status.
+
+Maintain employee activity logs.
+
+---
+
+# 5. CUSTOMER MANAGEMENT
+
+Build a complete customer relationship management module.
+
+## 5.1 Customer Registration
+
+Fields:
+
+- Customer ID.
+- Customer type: Individual / Business / Fleet.
+- Full name.
+- Company name.
+- Mobile number.
+- Alternate mobile number.
+- Email.
+- Address.
+- City.
+- State.
+- PIN code.
+- GSTIN where applicable.
+- PAN where applicable.
+- Date of birth.
+- Customer category.
+- Customer source.
+- Assigned service advisor.
+- Customer notes.
+- Documents.
+- Status.
+
+## 5.2 Customer Profile
+
+Each customer must have a complete profile containing:
+
+- Personal details.
+- Registered vehicles.
+- Vehicle service history.
+- Previous job cards.
+- Previous estimates.
+- Invoices.
+- Payments.
+- Outstanding balances.
+- Complaints.
+- Warranty claims.
+- Insurance claims.
+- Upcoming service reminders.
+- Customer feedback.
+- Communication history.
+
+## 5.3 Customer Categories
+
+- Retail customers.
+- Corporate customers.
+- Fleet customers.
+- Insurance customers.
+- Walk-in customers.
+- Regular customers.
+- VIP customers.
+
+## 5.4 Customer Communication
+
+Record:
+
+- Calls.
+- Emails.
+- SMS.
+- WhatsApp messages.
+- Service reminders.
+- Complaint history.
+- Follow-up notes.
+
+Support integration-ready WhatsApp Business API and SMS services.
+
+---
+
+# 6. VEHICLE MANAGEMENT
+
+This is one of the most important modules.
+
+Every vehicle must have a permanent profile with complete service history.
+
+## 6.1 Vehicle Registration
+
+Vehicle fields:
+
+- Vehicle ID.
+- Registration number.
+- Registration date.
+- Vehicle type.
+- Vehicle category.
+- Manufacturer.
+- Brand.
+- Model.
+- Variant.
+- Fuel type.
+- Transmission type.
+- Engine number.
+- Chassis number.
+- VIN.
+- Manufacturing year.
+- Color.
+- Odometer reading.
+- Insurance company.
+- Insurance policy number.
+- Insurance expiry date.
+- PUC expiry date.
+- Fitness certificate expiry where applicable.
+- Road tax details where applicable.
+- Owner information.
+- Vehicle photographs.
+- RC document.
+- Insurance document.
+- Other documents.
+
+Support:
+
+- Cars.
+- Motorcycles.
+- Scooters.
+- Trucks.
+- Buses.
+- Commercial vehicles.
+- Electric vehicles.
+- Hybrid vehicles.
+
+Make vehicle fields configurable by vehicle category.
+
+## 6.2 Vehicle Profile
+
+Show:
+
+- Vehicle information.
+- Customer information.
+- Service history.
+- Previous repairs.
+- Previous parts replacements.
+- Current odometer.
+- Previous odometer readings.
+- Engine-related complaints.
+- Service reminders.
+- Insurance information.
+- Warranty information.
+- Outstanding invoices.
+- Accident history.
+- Vehicle documents.
+- Vehicle photographs.
+
+## 6.3 Vehicle History
+
+Maintain a complete history of:
+
+- Service visits.
+- Oil changes.
+- Brake replacements.
+- Tire replacements.
+- Battery replacements.
+- Engine repairs.
+- Electrical repairs.
+- Accident repairs.
+- Denting and painting.
+- AC repairs.
+- General servicing.
+
+Never overwrite historical vehicle service records.
+
+## 6.4 Vehicle Search
+
+Allow searching using:
+
+- Registration number.
+- Customer mobile number.
+- Customer name.
+- VIN.
+- Chassis number.
+- Engine number.
+- Vehicle ID.
+
+Show duplicate vehicle warnings during registration.
+
+---
+
+# 7. APPOINTMENT AND BOOKING MANAGEMENT
+
+Create an appointment scheduling system.
+
+## 7.1 Appointment Creation
+
+Fields:
+
+- Appointment number.
+- Customer.
+- Vehicle.
+- Appointment date.
+- Appointment time.
+- Expected arrival.
+- Expected service duration.
+- Service category.
+- Requested services.
+- Customer complaints.
+- Assigned service advisor.
+- Assigned branch.
+- Preferred mechanic where applicable.
+- Notes.
+- Appointment source.
+
+Appointment sources:
+
+- Walk-in.
+- Phone.
+- Website.
+- WhatsApp.
+- Mobile application.
+- Referral.
+- Repeat customer.
+
+## 7.2 Appointment Calendar
+
+Provide:
+
+- Daily calendar.
+- Weekly calendar.
+- Monthly calendar.
+- Mechanic-wise calendar.
+- Service bay calendar.
+- Branch-wise calendar.
+
+## 7.3 Appointment Status
+
+- Requested.
+- Confirmed.
+- Rescheduled.
+- Checked In.
+- In Service.
+- Completed.
+- Cancelled.
+- No Show.
+
+## 7.4 Capacity Management
+
+Prevent overbooking based on:
+
+- Available service bays.
+- Available mechanics.
+- Workshop operating hours.
+- Estimated service duration.
+- Service category.
+- Branch capacity.
+
+Allow authorized manual overrides.
+
+## 7.5 Appointment Notifications
+
+Send configurable reminders:
+
+- Appointment confirmation.
+- One-day reminder.
+- Same-day reminder.
+- Rescheduled notification.
+- Cancellation notification.
+
+---
+
+# 8. VEHICLE CHECK-IN AND INSPECTION
+
+Build a professional vehicle reception and inspection system.
+
+## 8.1 Vehicle Check-In
+
+When a vehicle arrives:
+
+1. Search customer.
+2. Select vehicle.
+3. Verify registration.
+4. Record current odometer.
+5. Record fuel level.
+6. Record arrival date and time.
+7. Record customer complaints.
+8. Record requested services.
+9. Take vehicle photographs.
+10. Record existing damage.
+11. Record accessories and belongings where relevant.
+12. Generate vehicle check-in receipt.
+
+## 8.2 Vehicle Inspection Checklist
+
+Create configurable inspection templates.
+
+Inspection categories:
+
+### Exterior
+
+- Front bumper.
+- Rear bumper.
+- Doors.
+- Bonnet.
+- Boot.
+- Mirrors.
+- Windscreen.
+- Windows.
+- Headlights.
+- Tail lights.
+- Paint condition.
+- Existing scratches.
+- Dents.
+
+### Interior
+
+- Seats.
+- Dashboard.
+- Steering wheel.
+- AC.
+- Infotainment.
+- Horn.
+- Seat belts.
+- Floor mats.
+- Interior cleanliness.
+
+### Mechanical
+
+- Engine.
+- Engine oil.
+- Coolant.
+- Battery.
+- Brake system.
+- Suspension.
+- Steering.
+- Transmission.
+- Clutch.
+- Exhaust.
+- Belts and hoses.
+
+### Tires
+
+- Front left.
+- Front right.
+- Rear left.
+- Rear right.
+- Spare tire.
+- Tire pressure.
+- Tread condition.
+
+### Electrical
+
+- Battery voltage.
+- Lights.
+- Wipers.
+- Sensors.
+- Electrical connections.
+
+Inspection results:
+
+- Good.
+- Needs Attention.
+- Damaged.
+- Not Applicable.
+
+Allow:
+
+- Notes.
+- Photos.
+- Videos where supported.
+- Inspector name.
+- Inspection timestamp.
+- Customer acknowledgment.
+
+## 8.3 Digital Vehicle Inspection Report
+
+Generate a professional PDF inspection report with:
+
+- Vehicle details.
+- Customer details.
+- Odometer.
+- Fuel level.
+- Inspection checklist.
+- Photographs.
+- Existing damages.
+- Recommended repairs.
+- Inspector details.
+
+Allow sending the report to customers for review.
+
+---
+
+# 9. JOB CARD MANAGEMENT
+
+The job card is the central document for every garage service operation.
+
+## 9.1 Job Card Creation
+
+Generate a unique job card number.
+
+Fields:
+
+- Job card number.
+- Branch.
+- Customer.
+- Vehicle.
+- Appointment reference.
+- Check-in reference.
+- Odometer reading.
+- Fuel level.
+- Customer complaints.
+- Requested services.
+- Inspection report.
+- Assigned service advisor.
+- Assigned workshop supervisor.
+- Expected delivery date.
+- Expected delivery time.
+- Priority.
+- Job card status.
+
+## 9.2 Job Card Types
+
+- General Service.
+- Paid Service.
+- Free Service.
+- Periodic Maintenance.
+- Engine Repair.
+- Brake Repair.
+- Clutch Repair.
+- AC Repair.
+- Electrical Repair.
+- Denting and Painting.
+- Accident Repair.
+- Tire Replacement.
+- Wheel Alignment.
+- Battery Replacement.
+- Washing and Detailing.
+- Diagnostic Service.
+- Warranty Repair.
+- Insurance Repair.
+
+Allow custom job card categories.
+
+## 9.3 Job Card Status
+
+Implement:
+
+Draft → Checked In → Inspection Pending → Estimate Preparation → Awaiting Customer Approval → Approved → Work Assigned → In Progress → Quality Check → Ready for Delivery → Invoiced → Delivered → Closed.
+
+Additional states:
+
+- On Hold.
+- Awaiting Parts.
+- Rework Required.
+- Cancelled.
+
+Every status change must be validated and recorded.
+
+## 9.4 Job Card Details
+
+Each job card must display:
+
+- Customer information.
+- Vehicle information.
+- Inspection report.
+- Customer complaints.
+- Recommended services.
+- Approved services.
+- Spare parts required.
+- Mechanic assignments.
+- Labour operations.
+- Work progress.
+- Parts issued.
+- Parts returned.
+- Additional repair requests.
+- Quality inspection.
+- Billing information.
+- Payment information.
+
+## 9.5 Job Card Documents
+
+Generate:
+
+- Vehicle check-in receipt.
+- Job card PDF.
+- Work assignment sheet.
+- Spare parts issue slip.
+- Repair estimate.
+- Quality inspection sheet.
+- Delivery checklist.
+
+---
+
+# 10. SERVICE CATALOG AND LABOUR MANAGEMENT
+
+Create a centralized service catalog.
+
+## 10.1 Service Categories
+
+Examples:
+
+- General Service.
+- Engine Service.
+- Brake Service.
+- Clutch Service.
+- AC Service.
+- Electrical Service.
+- Suspension Service.
+- Steering Service.
+- Transmission Service.
+- Tire Service.
+- Battery Service.
+- Denting.
+- Painting.
+- Washing.
+- Detailing.
+- Wheel Alignment.
+- Wheel Balancing.
+- Diagnostics.
+
+## 10.2 Service Master
+
+Fields:
+
+- Service code.
+- Service name.
+- Category.
+- Description.
+- Applicable vehicle categories.
+- Applicable manufacturers.
+- Applicable models.
+- Estimated labour time.
+- Standard labour charge.
+- Required skills.
+- Required tools.
+- Required spare parts.
+- Tax category.
+- Warranty period.
+- Status.
+
+## 10.3 Service Packages
+
+Create predefined packages:
+
+- Basic Service.
+- Standard Service.
+- Premium Service.
+- Complete Service.
+- AC Service Package.
+- Brake Service Package.
+- Annual Maintenance Package.
+- Fleet Maintenance Package.
+
+Each package can include:
+
+- Multiple services.
+- Spare parts.
+- Labour charges.
+- Package discounts.
+- Validity.
+- Applicable vehicle types.
+
+Support vehicle-specific pricing.
+
+---
+
+# 11. REPAIR ESTIMATE AND CUSTOMER APPROVAL
+
+Build a complete repair estimation system.
+
+## 11.1 Estimate Creation
+
+Generate a repair estimate against a job card.
+
+Estimate components:
+
+- Labour charges.
+- Spare parts.
+- Consumables.
+- External services.
+- Diagnostic charges.
+- Other charges.
+- Discounts.
+- GST.
+- Additional charges.
+
+Fields:
+
+- Estimate number.
+- Customer.
+- Vehicle.
+- Job card.
+- Estimate date.
+- Validity date.
+- Expected delivery date.
+- Prepared by.
+- Total estimated amount.
+- Approval status.
+
+## 11.2 Estimate Workflow
+
+Draft → Submitted → Sent to Customer → Awaiting Approval → Approved / Partially Approved / Rejected → Converted to Work Order.
+
+## 11.3 Customer Approval
+
+Provide customer approval through:
+
+- Printed document.
+- Email.
+- WhatsApp integration.
+- Customer portal.
+- Digital approval link.
+
+Record:
+
+- Approval timestamp.
+- Approved services.
+- Rejected services.
+- Customer remarks.
+- Approved amount.
+- Approval method.
+
+Support digital acceptance and an auditable record of customer consent. Do not treat a simple message delivery as customer approval.
+
+## 11.4 Additional Repair Approval
+
+If additional problems are discovered:
+
+1. Mechanic reports additional issue.
+2. Service advisor prepares supplementary estimate.
+3. Customer receives notification.
+4. Customer approves or rejects.
+5. Only approved additional work is released.
+
+Maintain estimate version history.
+
+---
+
+# 12. MECHANIC AND TECHNICIAN MANAGEMENT
+
+Create a complete workforce assignment system.
+
+## 12.1 Technician Profiles
+
+Fields:
+
+- Technician ID.
+- Name.
+- Contact.
+- Department.
+- Skills.
+- Specialization.
+- Experience.
+- Certifications.
+- Branch.
+- Assigned shift.
+- Hourly labour cost.
+- Employment status.
+
+Skills examples:
+
+- Engine Repair.
+- Electrical.
+- AC.
+- Brake Systems.
+- Suspension.
+- Denting.
+- Painting.
+- Diagnostics.
+- Two-Wheeler Repair.
+- EV Repair.
+
+## 12.2 Technician Assignment
+
+Assign mechanics to:
+
+- Job cards.
+- Individual services.
+- Repair operations.
+- Specific vehicles.
+- Work bays.
+
+Support multiple mechanics on one job card.
+
+## 12.3 Work Allocation
+
+Display:
+
+- Assigned tasks.
+- Pending tasks.
+- In-progress tasks.
+- Completed tasks.
+- Overdue tasks.
+- Estimated time.
+- Actual time.
+
+## 12.4 Technician Time Tracking
+
+Record:
+
+- Task start time.
+- Task end time.
+- Break time.
+- Total labour time.
+- Productive time.
+- Non-productive time.
+- Overtime.
+
+Calculate actual labour cost.
+
+## 12.5 Technician Performance
+
+Reports:
+
+- Jobs completed.
+- Average repair time.
+- Productivity.
+- Labour revenue.
+- Rework frequency.
+- Customer feedback.
+- Task completion rate.
+
+---
+
+# 13. WORKSHOP FLOOR AND SERVICE BAY MANAGEMENT
+
+Create a visual workshop operations dashboard.
+
+## 13.1 Service Bay Management
+
+Manage:
+
+- Bay number.
+- Bay name.
+- Bay type.
+- Vehicle compatibility.
+- Equipment.
+- Availability.
+- Assigned technician.
+- Current job card.
+- Estimated completion time.
+
+## 13.2 Bay Categories
+
+- General Service Bay.
+- Engine Repair Bay.
+- Electrical Bay.
+- AC Repair Bay.
+- Denting Bay.
+- Painting Bay.
+- Washing Bay.
+- Detailing Bay.
+- Two-Wheeler Bay.
+- EV Service Bay.
+
+## 13.3 Workshop Live Board
+
+Create a visual Kanban-style interface.
+
+Columns:
+
+- Waiting for Check-in.
+- Inspection.
+- Estimate Pending.
+- Awaiting Approval.
+- Awaiting Spare Parts.
+- Work Assigned.
+- In Progress.
+- Quality Check.
+- Ready for Delivery.
+- Delivered.
+
+Display each vehicle with:
+
+- Registration number.
+- Customer name.
+- Job card number.
+- Assigned technician.
+- Service type.
+- Expected delivery.
+- Current status.
+- Delay indicator.
+
+Allow authorized drag-and-drop status transitions with backend validation.
+
+## 13.4 Workshop Capacity
+
+Calculate:
+
+- Total service bays.
+- Available bays.
+- Occupied bays.
+- Jobs in progress.
+- Average service time.
+- Delayed jobs.
+- Technician availability.
+
+---
+
+# 14. SPARE PARTS AND INVENTORY MANAGEMENT
+
+Build a complete automobile spare parts inventory module.
+
+## 14.1 Spare Parts Master
+
+Fields:
+
+- Part code.
+- Part name.
+- OEM part number.
+- Manufacturer part number.
+- Barcode.
+- QR code.
+- Brand.
+- Category.
+- Compatible vehicle manufacturer.
+- Compatible models.
+- Compatible variants.
+- Applicable vehicle years.
+- Purchase price.
+- Selling price.
+- Wholesale price.
+- GST rate.
+- HSN.
+- Unit.
+- Minimum stock.
+- Reorder quantity.
+- Preferred supplier.
+- Warehouse.
+- Bin location.
+- Warranty period.
+- Status.
+
+## 14.2 Spare Parts Categories
+
+- Engine Parts.
+- Brake Parts.
+- Clutch Parts.
+- Suspension Parts.
+- Electrical Parts.
+- Filters.
+- Lubricants.
+- Tires.
+- Batteries.
+- Body Parts.
+- Accessories.
+- AC Components.
+- Fasteners.
+- Consumables.
+- Tools.
+
+## 14.3 Compatibility Management
+
+Support vehicle-specific compatibility.
+
+A part should be searchable by:
+
+- Part number.
+- Vehicle brand.
+- Model.
+- Variant.
+- Manufacturing year.
+- Engine type.
+- Fuel type.
+
+Allow one spare part to be compatible with multiple vehicle models.
+
+Compatibility information must be configurable and verified by garage staff rather than assumed.
+
+## 14.4 Inventory Operations
+
+- Opening stock.
+- Purchase receipt.
+- Stock transfer.
+- Material reservation.
+- Job card issue.
+- Job card return.
+- Purchase return.
+- Sales return.
+- Stock adjustment.
+- Damaged stock.
+- Warranty return.
+- Scrap disposal.
+
+## 14.5 Job Card Parts Allocation
+
+When preparing an estimate:
+
+1. Select required spare parts.
+2. Check stock availability.
+3. Display available quantity.
+4. Reserve required quantity.
+5. Issue parts against the job card.
+6. Record actual usage.
+7. Return unused parts.
+8. Update inventory.
+9. Add used parts to final invoice.
+
+Do not deduct stock merely because a part was added to a draft estimate.
+
+## 14.6 Inventory Valuation
+
+Support:
+
+- FIFO.
+- Moving weighted average.
+- Configurable standard cost.
+
+Maintain stock ledger and transaction history.
+
+## 14.7 Stock Alerts
+
+Generate alerts for:
+
+- Low stock.
+- Reorder level.
+- Out of stock.
+- Overstock.
+- Slow-moving parts.
+- Non-moving parts.
+- Expiring products where applicable.
+
+---
+
+# 15. PURCHASE AND SUPPLIER MANAGEMENT
+
+## 15.1 Supplier Master
+
+Fields:
+
+- Supplier code.
+- Supplier name.
+- Contact person.
+- Phone.
+- Email.
+- GSTIN.
+- PAN.
+- Address.
+- State.
+- Payment terms.
+- Bank information.
+- Supplier category.
+- Status.
+
+## 15.2 Purchase Requisition
+
+Create purchase requests based on:
+
+- Low stock.
+- Job card requirements.
+- Minimum stock.
+- Workshop demand.
+- Manual requests.
+
+## 15.3 Purchase Order
+
+Fields:
+
+- PO number.
+- Supplier.
+- Purchase date.
+- Expected delivery.
+- Warehouse.
+- Product.
+- Quantity.
+- Unit cost.
+- Discount.
+- GST.
+- Freight.
+- Other charges.
+- Total.
+
+Support:
+
+- Approval.
+- Partial receipt.
+- Cancellation.
+- PDF generation.
+- Purchase order tracking.
+
+## 15.4 Goods Receipt Note
+
+Record:
+
+- Purchase order.
+- Supplier.
+- Received quantity.
+- Accepted quantity.
+- Rejected quantity.
+- Damaged quantity.
+- Batch details where applicable.
+- Warehouse.
+- Received date.
+
+Update stock only when the goods receipt is posted.
+
+## 15.5 Purchase Invoice
+
+Features:
+
+- Supplier invoice.
+- GST calculations.
+- PO matching.
+- GRN matching.
+- Invoice attachments.
+- Payment status.
+- Outstanding amount.
+
+## 15.6 Supplier Payments
+
+- Advance.
+- Partial payment.
+- Full payment.
+- Payment allocation.
+- Payment mode.
+- Payment reference.
+- Outstanding balance.
+
+---
+
+# 16. SERVICE EXECUTION AND REPAIR TRACKING
+
+This module manages actual workshop activity.
+
+## 16.1 Work Order Generation
+
+Convert an approved job card and estimate into a work execution plan.
+
+Include:
+
+- Approved services.
+- Approved parts.
+- Assigned mechanics.
+- Service bays.
+- Required tools.
+- Expected completion.
+- Priority.
+
+## 16.2 Task Management
+
+Break each job into individual repair tasks.
+
+Example: Engine Service.
+
+1. Engine inspection.
+2. Drain old engine oil.
+3. Replace oil filter.
+4. Fill engine oil.
+5. Check coolant.
+6. Check belts.
+7. Check leaks.
+8. Perform engine diagnostics.
+9. Final testing.
+
+Each task must support:
+
+- Assigned mechanic.
+- Start time.
+- End time.
+- Estimated duration.
+- Actual duration.
+- Status.
+- Remarks.
+- Photos.
+- Parts consumed.
+
+## 16.3 Work Progress
+
+Statuses:
+
+- Pending.
+- Assigned.
+- In Progress.
+- Waiting for Parts.
+- On Hold.
+- Completed.
+- Rework Required.
+
+## 16.4 Additional Work
+
+Allow mechanics to report additional defects.
+
+Require service advisor review and customer approval before undertaking chargeable additional work.
+
+## 16.5 Repair History
+
+Maintain detailed records of every operation performed on a vehicle.
+
+---
+
+# 17. QUALITY CONTROL AND FINAL INSPECTION
+
+Create a final vehicle quality assurance system.
+
+## 17.1 Quality Checklist
+
+Configurable checks:
+
+- Engine performance.
+- Brake performance.
+- Steering.
+- Suspension.
+- AC operation.
+- Electrical systems.
+- Tire condition.
+- Wheel alignment.
+- Fluid levels.
+- Exterior condition.
+- Interior cleanliness.
+- Test drive.
+- Roadworthiness-related checks.
+
+## 17.2 Quality Inspection Workflow
+
+1. Mechanic completes assigned tasks.
+2. Supervisor reviews job card.
+3. Quality inspector performs checks.
+4. Record pass/fail.
+5. Identify failed items.
+6. Assign rework.
+7. Reinspect.
+8. Approve vehicle for delivery.
+
+## 17.3 Quality Reports
+
+- First-time pass rate.
+- Rework rate.
+- Defect categories.
+- Technician-wise quality.
+- Job card-wise quality.
+- Customer complaints after service.
+
+Never mark a vehicle ready for delivery when mandatory quality checks are incomplete.
+
+---
+
+# 18. VEHICLE DELIVERY MANAGEMENT
+
+## 18.1 Delivery Preparation
+
+Before delivery:
+
+- Verify completed work.
+- Verify parts usage.
+- Verify quality approval.
+- Verify invoice.
+- Verify payment or approved credit.
+- Verify vehicle documents.
+- Verify accessories and belongings.
+- Record final odometer.
+- Record fuel level.
+- Capture final photographs.
+
+## 18.2 Delivery Checklist
+
+- Vehicle cleaned.
+- Repairs completed.
+- Test drive completed where required.
+- Quality inspection passed.
+- Invoice generated.
+- Payment status verified.
+- Customer informed.
+- Vehicle handed over.
+
+## 18.3 Customer Handover
+
+Capture:
+
+- Customer name.
+- Handover date.
+- Handover time.
+- Odometer.
+- Customer signature or acknowledgment.
+- Delivery employee.
+- Notes.
+
+Generate a vehicle delivery receipt.
+
+## 18.4 Pickup and Drop Management
+
+Support optional vehicle pickup and delivery services.
+
+Features:
+
+- Pickup request.
+- Pickup address.
+- Delivery address.
+- Assigned driver.
+- Pickup schedule.
+- Delivery schedule.
+- Pickup photos.
+- Delivery photos.
+- Odometer.
+- Vehicle handover acknowledgment.
+- Pickup/drop charges.
+
+---
+
+# 19. BILLING AND INVOICE MANAGEMENT
+
+Build a professional GST-ready billing module.
+
+## 19.1 Invoice Generation
+
+Generate invoices from completed and approved job cards.
+
+Invoice components:
+
+- Labour charges.
+- Spare parts.
+- Consumables.
+- External services.
+- Diagnostic charges.
+- Pickup/drop charges.
+- Discounts.
+- CGST.
+- SGST.
+- IGST.
+- Other charges.
+
+## 19.2 Invoice Fields
+
+- Invoice number.
+- Invoice date.
+- Branch.
+- Customer.
+- Vehicle registration number.
+- Job card reference.
+- Service advisor.
+- Item description.
+- HSN/SAC.
+- Quantity.
+- Rate.
+- Discount.
+- Taxable value.
+- GST.
+- Total amount.
+- Payment terms.
+- Notes.
+
+## 19.3 Invoice Types
+
+- Tax Invoice.
+- Bill of Supply where applicable.
+- Proforma Invoice.
+- Credit Note.
+- Debit Note.
+
+## 19.4 Payment Management
+
+Support:
+
+- Cash.
+- UPI.
+- Credit Card.
+- Debit Card.
+- Bank Transfer.
+- Cheque.
+- Payment Gateway.
+- Credit Account.
+- Split Payments.
+
+Allow:
+
+- Partial payment.
+- Advance payment.
+- Multiple payment allocations.
+- Refund.
+- Outstanding balance.
+- Payment receipt.
+- Payment history.
+
+## 19.5 Discounts
+
+Support:
+
+- Item-level discount.
+- Service-level discount.
+- Invoice-level discount.
+- Customer-specific discount.
+- Promotional discount.
+
+Implement discount approval limits.
+
+## 19.6 GST Configuration
+
+Support configurable Indian tax rules:
+
+- GSTIN.
+- CGST.
+- SGST.
+- IGST.
+- HSN/SAC.
+- Taxable value.
+- Tax exemptions where applicable.
+- Place of supply.
+- Reverse charge configuration where applicable.
+
+Use configurable tax rules and appropriate accounting treatment for parts and labour.
+
+Do not hardcode one tax rate for all repair services or spare parts.
+
+## 19.7 Invoice Documents
+
+Generate professional PDF documents:
+
+- Tax invoice.
+- Payment receipt.
+- Estimate.
+- Credit note.
+- Job card.
+- Delivery receipt.
+
+Include company branding, GST information, customer details, vehicle information, tax breakdown, and payment information.
+
+---
+
+# 20. INSURANCE CLAIM MANAGEMENT
+
+Build an insurance repair workflow.
+
+## 20.1 Insurance Company Master
+
+Fields:
+
+- Company name.
+- Contact person.
+- Phone.
+- Email.
+- Address.
+- Claim contact.
+- Status.
+
+## 20.2 Insurance Claim Registration
+
+Fields:
+
+- Claim number.
+- Insurance company.
+- Policy number.
+- Customer.
+- Vehicle.
+- Accident date.
+- Accident description.
+- Claim registration date.
+- Surveyor details.
+- Estimated claim amount.
+- Approved claim amount.
+- Customer payable amount.
+- Claim status.
+
+## 20.3 Accident Inspection
+
+Capture:
+
+- Accident photographs.
+- Damaged vehicle components.
+- Damage description.
+- Inspection report.
+- Estimated repair cost.
+- Surveyor approval.
+
+## 20.4 Claim Workflow
+
+Registered → Inspection → Estimate Submitted → Surveyor Review → Approved / Partially Approved / Rejected → Repair in Progress → Completed → Invoice Submitted → Settlement Pending → Settled.
+
+## 20.5 Insurance Billing
+
+Separate:
+
+- Insurance payable amount.
+- Customer deductible.
+- Non-covered items.
+- Customer contribution.
+- Insurance payment.
+- Customer payment.
+
+Maintain claim settlement history.
+
+---
+
+# 21. WARRANTY AND FREE SERVICE MANAGEMENT
+
+## 21.1 Warranty Management
+
+Track warranty for:
+
+- Spare parts.
+- Batteries.
+- Tires.
+- Engine repairs.
+- Major component replacements.
+- Workshop labour.
+- Service packages.
+
+Fields:
+
+- Warranty number.
+- Customer.
+- Vehicle.
+- Job card.
+- Product or service.
+- Start date.
+- End date.
+- Warranty conditions.
+- Coverage.
+- Exclusions.
+
+## 21.2 Warranty Claims
+
+- Claim registration.
+- Issue description.
+- Inspection.
+- Approval.
+- Replacement or repair.
+- Claim closure.
+
+## 21.3 Free Service Tracking
+
+Support vehicle manufacturer service schedules and configured free-service entitlements.
+
+Track:
+
+- Free service number.
+- Validity period.
+- Kilometer limit.
+- Service completion.
+- Eligible services.
+- Excluded services.
+- Remaining free services.
+
+Do not assume manufacturer-specific schedules. Allow configuration.
+
+---
+
+# 22. CUSTOMER CRM AND RETENTION MANAGEMENT
+
+Build a customer retention module.
+
+## 22.1 Service Reminders
+
+Automatically generate reminders based on:
+
+- Next service date.
+- Next service kilometer.
+- Last service date.
+- Last odometer.
+- Oil change interval.
+- Insurance expiry.
+- PUC expiry.
+- Battery replacement.
+- Tire replacement.
+- Warranty expiry.
+
+Support date-based and kilometer-based reminders.
+
+## 22.2 Follow-up Management
+
+Features:
+
+- Follow-up task.
+- Assigned employee.
+- Due date.
+- Follow-up status.
+- Customer remarks.
+- Next action.
+
+## 22.3 Customer Feedback
+
+After delivery:
+
+- Send feedback request.
+- Customer rating.
+- Service experience.
+- Staff behavior.
+- Repair quality.
+- Suggestions.
+- Complaint registration.
+
+## 22.4 Customer Loyalty
+
+Support:
+
+- Loyalty points.
+- Reward programs.
+- Service discounts.
+- Referral rewards.
+- Membership packages.
+- Annual maintenance contracts.
+
+## 22.5 Customer Communication
+
+Integration-ready architecture for:
+
+- WhatsApp Business API.
+- SMS.
+- Email.
+
+Templates:
+
+- Appointment confirmation.
+- Estimate approval.
+- Job started.
+- Additional repair approval.
+- Vehicle ready.
+- Invoice.
+- Payment receipt.
+- Service reminder.
+- Feedback request.
+
+Maintain communication logs and customer consent/preferences.
+
+---
+
+# 23. EXPENSE AND FINANCIAL MANAGEMENT
+
+Create an integrated financial management module.
+
+## 23.1 Expense Categories
+
+- Rent.
+- Electricity.
+- Water.
+- Employee Salary.
+- Mechanic Wages.
+- Tools.
+- Equipment.
+- Consumables.
+- Workshop Maintenance.
+- Internet.
+- Marketing.
+- Fuel.
+- Transportation.
+- Other Expenses.
+
+## 23.2 Expense Management
+
+Fields:
+
+- Expense number.
+- Date.
+- Category.
+- Amount.
+- GST where applicable.
+- Vendor.
+- Payment mode.
+- Description.
+- Attachment.
+- Branch.
+- Created by.
+- Approval status.
+
+## 23.3 Cash and Bank Management
+
+- Cash accounts.
+- Bank accounts.
+- Cash receipts.
+- Cash payments.
+- Bank transactions.
+- Deposits.
+- Withdrawals.
+- Bank reconciliation.
+
+## 23.4 Integrated Accounting
+
+Implement double-entry accounting.
+
+Modules:
+
+- Chart of Accounts.
+- General Ledger.
+- Journal Entries.
+- Accounts Receivable.
+- Accounts Payable.
+- Customer Ledger.
+- Supplier Ledger.
+- Cash Book.
+- Bank Book.
+- Trial Balance.
+- Profit and Loss.
+- Balance Sheet.
+
+Financial rules:
+
+- Total debit must equal total credit.
+- Posted entries cannot be silently modified.
+- Corrections must use reversal entries.
+- Payments must be allocated correctly.
+- Financial periods must be configurable.
+
+## 23.5 Garage Profitability
+
+Calculate:
+
+- Labour revenue.
+- Spare parts revenue.
+- Service revenue.
+- Total expenses.
+- Spare parts cost.
+- Labour cost.
+- Gross profit.
+- Net profit.
+- Job card profitability.
+- Vehicle-wise profitability.
+- Technician-wise revenue.
+- Branch-wise profitability.
+
+---
+
+# 24. ELECTRIC VEHICLE (EV) SERVICE SUPPORT
+
+Make the system EV-ready.
+
+Support:
+
+- Electric cars.
+- Electric scooters.
+- Electric motorcycles.
+- Electric commercial vehicles.
+
+EV-specific information:
+
+- Battery manufacturer.
+- Battery model.
+- Battery capacity.
+- Battery serial number.
+- Battery warranty.
+- Charging system.
+- Motor details.
+- Controller details.
+- Battery health.
+- Diagnostic codes.
+- Battery inspection history.
+
+EV service categories:
+
+- Battery diagnostics.
+- Battery health inspection.
+- Charging system inspection.
+- Motor diagnostics.
+- Controller inspection.
+- Electrical system inspection.
+- Software diagnostics where supported.
+
+Do not claim to read live vehicle diagnostic data without a compatible external diagnostic device or integration.
+
+---
+
+# 25. CUSTOMER AND EMPLOYEE PORTALS
+
+## 25.1 Customer Portal
+
+Provide a customer login or secure access link.
+
+Customers should be able to:
+
+- View registered vehicles.
+- Book appointments.
+- View service history.
+- View job card status.
+- View repair estimates.
+- Approve or reject estimates.
+- View invoices.
+- View payment history.
+- Download documents.
+- View upcoming reminders.
+- Submit complaints.
+- Provide feedback.
+
+Customers must only access their own records.
+
+## 25.2 Mechanic Portal
+
+Provide a mobile-friendly mechanic interface.
+
+Mechanics can:
+
+- Login.
+- View assigned job cards.
+- View assigned tasks.
+- View vehicle information.
+- Update work status.
+- Record start and end time.
+- Report additional defects.
+- Request spare parts.
+- Upload repair photos.
+- Record work completion.
+- Submit job for inspection.
+
+## 25.3 Service Advisor Portal
+
+Service advisors can:
+
+- Manage appointments.
+- Register customers.
+- Register vehicles.
+- Perform check-in.
+- Create job cards.
+- Prepare estimates.
+- Request customer approvals.
+- Track work progress.
+- Inform customers.
+- Coordinate vehicle delivery.
+
+---
+
+# 26. DASHBOARDS AND BUSINESS INTELLIGENCE
+
+Create role-specific dashboards.
+
+## 26.1 Owner Dashboard
+
+Display:
+
+- Today's revenue.
+- Monthly revenue.
+- Total outstanding.
+- Total expenses.
+- Gross profit.
+- Net profit.
+- Total vehicles serviced.
+- Active job cards.
+- Pending deliveries.
+- Average invoice value.
+- Customer retention.
+- Branch performance.
+- Service category revenue.
+
+## 26.2 Service Manager Dashboard
+
+Display:
+
+- Today's appointments.
+- Vehicles checked in.
+- Pending inspections.
+- Pending estimates.
+- Pending approvals.
+- Jobs in progress.
+- Jobs awaiting parts.
+- Jobs delayed.
+- Vehicles ready for delivery.
+
+## 26.3 Workshop Dashboard
+
+Display:
+
+- Available service bays.
+- Occupied service bays.
+- Mechanics available.
+- Jobs assigned.
+- Jobs in progress.
+- Jobs completed.
+- Overdue jobs.
+- Workshop capacity.
+- Technician productivity.
+
+## 26.4 Inventory Dashboard
+
+Display:
+
+- Total spare parts.
+- Total inventory value.
+- Low stock items.
+- Out of stock items.
+- Reorder requirements.
+- Purchase orders.
+- Stock movement.
+- Fast-moving parts.
+- Slow-moving parts.
+
+## 26.5 Accountant Dashboard
+
+Display:
+
+- Today's collections.
+- Cash balance.
+- Bank balance.
+- Customer outstanding.
+- Supplier outstanding.
+- Total invoices.
+- Pending payments.
+- Expenses.
+- Monthly profit.
+
+## 26.6 Dashboard Charts
+
+Implement:
+
+- Daily revenue chart.
+- Monthly revenue chart.
+- Service category distribution.
+- Labour vs spare parts revenue.
+- Payment mode distribution.
+- Job card status chart.
+- Mechanic performance.
+- Branch performance.
+- Customer retention trends.
+
+All charts and metrics must use real database records.
+
+---
+
+# 27. REPORTS AND ANALYTICS
+
+Create a centralized reporting module.
+
+Every report should support:
+
+- Date range.
+- Branch.
+- Customer.
+- Vehicle.
+- Job card.
+- Service category.
+- Mechanic.
+- Payment status.
+- Invoice status.
+
+## 27.1 Customer Reports
+
+1. Customer Register.
+2. Customer Service History.
+3. Customer Outstanding.
+4. Customer Lifetime Value.
+5. Repeat Customer Report.
+6. Customer Feedback.
+7. Customer Complaints.
+
+## 27.2 Vehicle Reports
+
+1. Vehicle Register.
+2. Vehicle Service History.
+3. Vehicle-wise Revenue.
+4. Vehicle-wise Repair History.
+5. Upcoming Service.
+6. Insurance Expiry.
+7. PUC Expiry.
+8. Warranty Expiry.
+
+## 27.3 Job Card Reports
+
+1. Job Card Register.
+2. Pending Job Cards.
+3. Completed Job Cards.
+4. Delayed Job Cards.
+5. Job Card Profitability.
+6. Job Card Labour Analysis.
+7. Spare Parts Consumption.
+8. Additional Repair Report.
+
+## 27.4 Mechanic Reports
+
+1. Technician Productivity.
+2. Jobs Completed.
+3. Average Repair Time.
+4. Labour Revenue.
+5. Overtime.
+6. Rework Rate.
+7. Technician Attendance.
+
+## 27.5 Inventory Reports
+
+1. Stock Summary.
+2. Stock Ledger.
+3. Stock Valuation.
+4. Low Stock.
+5. Out of Stock.
+6. Reorder Report.
+7. Purchase History.
+8. Spare Parts Usage.
+9. Slow Moving Stock.
+10. Non Moving Stock.
+
+## 27.6 Financial Reports
+
+1. Sales Register.
+2. Purchase Register.
+3. Cash Book.
+4. Bank Book.
+5. Expense Register.
+6. Customer Ledger.
+7. Supplier Ledger.
+8. Accounts Receivable.
+9. Accounts Payable.
+10. Profit and Loss.
+11. Balance Sheet.
+12. Trial Balance.
+13. GST Report.
+14. Branch Profitability.
+
+## 27.7 Operational Reports
+
+1. Appointment Report.
+2. Service Bay Utilization.
+3. Workshop Efficiency.
+4. Average Vehicle Turnaround Time.
+5. First-Time Fix Rate.
+6. Quality Inspection Report.
+7. Warranty Claim Report.
+8. Insurance Claim Report.
+9. Customer Retention Report.
+10. Service Reminder Conversion.
+
+Allow PDF, Excel and CSV exports.
+
+---
+
+# 28. DATABASE ARCHITECTURE
+
+Design a normalized MySQL database.
+
+Use proper foreign keys, indexes, unique constraints, timestamps, decimal precision, and appropriate soft-delete policies.
+
+Every business record must have appropriate company and branch ownership.
+
+Do not blindly create tables without examining relationships.
+
+## 28.1 Core Tables
+
+- companies
+- branches
+- workshops
+- departments
+- users
+- roles
+- permissions
+- employees
+- employee_skills
+- employee_shifts
+- activity_logs
+- approval_workflows
+- approval_requests
+
+## 28.2 Customer Tables
+
+- customers
+- customer_addresses
+- customer_contacts
+- customer_documents
+- customer_notes
+- customer_communications
+- customer_feedback
+- customer_complaints
+- customer_loyalty_accounts
+- customer_loyalty_transactions
+
+## 28.3 Vehicle Tables
+
+- vehicle_types
+- vehicle_brands
+- vehicle_models
+- vehicle_variants
+- vehicles
+- vehicle_owners
+- vehicle_documents
+- vehicle_photos
+- vehicle_service_history
+- vehicle_odometer_readings
+- vehicle_insurance
+- vehicle_warranties
+- vehicle_reminders
+- vehicle_inspections
+- vehicle_inspection_items
+
+## 28.4 Appointment Tables
+
+- appointments
+- appointment_services
+- appointment_mechanics
+- appointment_status_history
+- service_bays
+- service_bay_bookings
+
+## 28.5 Job Card Tables
+
+- job_cards
+- job_card_complaints
+- job_card_services
+- job_card_parts
+- job_card_tasks
+- job_card_status_history
+- job_card_documents
+- job_card_mechanics
+- job_card_additional_work
+
+## 28.6 Service Tables
+
+- service_categories
+- services
+- service_vehicle_compatibilities
+- service_packages
+- service_package_items
+- service_pricing
+- service_warranties
+
+## 28.7 Estimate Tables
+
+- repair_estimates
+- repair_estimate_items
+- repair_estimate_versions
+- estimate_approvals
+- estimate_status_history
+
+## 28.8 Workshop Tables
+
+- work_orders
+- work_order_tasks
+- technician_assignments
+- technician_time_logs
+- workshop_operations
+- service_bays
+- workshop_shifts
+- workshop_checklists
+
+## 28.9 Inventory Tables
+
+- spare_parts
+- spare_part_categories
+- spare_part_brands
+- spare_part_compatibilities
+- warehouses
+- warehouse_bins
+- stock_ledger
+- stock_balances
+- stock_reservations
+- stock_movements
+- stock_adjustments
+- inventory_batches
+- stock_issue_notes
+- stock_issue_items
+- stock_return_notes
+- stock_return_items
+
+## 28.10 Purchase Tables
+
+- suppliers
+- supplier_contacts
+- purchase_requisitions
+- purchase_requisition_items
+- purchase_orders
+- purchase_order_items
+- goods_receipts
+- goods_receipt_items
+- purchase_invoices
+- purchase_invoice_items
+- purchase_returns
+- purchase_return_items
+- supplier_payments
+
+## 28.11 Quality Tables
+
+- quality_templates
+- quality_template_items
+- quality_inspections
+- quality_inspection_results
+- quality_rejections
+- rework_records
+
+## 28.12 Insurance and Warranty Tables
+
+- insurance_companies
+- insurance_claims
+- insurance_claim_documents
+- insurance_claim_items
+- insurance_claim_payments
+- warranty_claims
+- warranty_claim_items
+- free_service_entitlements
+
+## 28.13 Billing Tables
+
+- invoices
+- invoice_items
+- invoice_taxes
+- credit_notes
+- debit_notes
+- payments
+- payment_allocations
+- payment_refunds
+- payment_methods
+
+## 28.14 Financial Tables
+
+- chart_of_accounts
+- journal_entries
+- journal_entry_lines
+- accounting_periods
+- fiscal_years
+- bank_accounts
+- cash_accounts
+- expenses
+- expense_categories
+- cost_centers
+- account_reconciliations
+
+## 28.15 CRM and Notification Tables
+
+- service_reminders
+- follow_up_tasks
+- notification_templates
+- notifications
+- communication_logs
+- customer_portal_tokens
+- loyalty_programs
+
+## 28.16 System Tables
+
+- documents
+- attachments
+- document_versions
+- system_settings
+- integration_settings
+- webhook_logs
+- import_jobs
+- export_jobs
+- audit_logs
+
+Add additional tables and join tables wherever required.
+
+Document every table, relationship, index, and business purpose in DATABASE_SCHEMA.md.
+
+---
+
+# 29. IMPORTANT BUSINESS LOGIC AND VALIDATIONS
+
+These are mandatory rules.
+
+## 29.1 Customer and Vehicle Integrity
+
+- A vehicle must be associated with an authorized customer record.
+- Vehicle registration numbers must be unique within the applicable jurisdiction and tenant scope.
+- Ownership changes must preserve historical ownership.
+- Service history must never be overwritten.
+- Odometer readings must be recorded with their source and timestamp.
+- Flag suspicious decreases in odometer readings.
+
+## 29.2 Job Card Integrity
+
+- Every job card must reference a valid vehicle.
+- Every job card must reference a customer.
+- A job card must have a unique number within its configured numbering scope.
+- Chargeable work must require customer authorization.
+- Additional work must have a separate approval record.
+- Closed job cards must not be silently modified.
+- Reopening must require permission and a recorded reason.
+
+## 29.3 Spare Parts Integrity
+
+- Draft estimates must not reduce stock.
+- Approved parts may be reserved.
+- Actual stock must be deducted when parts are issued.
+- Unused parts must be returned through a stock transaction.
+- Negative stock must be prevented unless explicitly configured.
+- Every movement must have a source document.
+- Stock adjustments must be auditable.
+
+## 29.4 Billing Integrity
+
+- Invoice totals must be calculated from invoice line items.
+- Tax must be calculated according to configured rules.
+- Payments must not exceed outstanding balances unless recorded as an advance or overpayment.
+- Refunds must be traceable.
+- Posted invoices must not be silently edited.
+- Credit notes and reversals must preserve financial history.
+
+## 29.5 Transaction Safety
+
+Use database transactions for:
+
+- Job card conversion.
+- Parts reservation.
+- Spare parts issue.
+- Stock returns.
+- Invoice posting.
+- Payment allocation.
+- Refunds.
+- Insurance settlements.
+
+Use appropriate row locking and idempotency protection to prevent duplicate transactions and concurrency errors.
+
+---
+
+# 30. UI/UX AND DESIGN SYSTEM
+
+Create a premium SaaS-style automotive ERP interface.
+
+## 30.1 Visual Direction
+
+Design inspiration:
+
+- Modern Zoho applications.
+- Odoo.
+- Service management dashboards.
+- Enterprise workshop software.
+
+Use:
+
+- Clean white backgrounds.
+- Light gray surfaces.
+- Professional typography.
+- Consistent spacing.
+- Subtle shadows.
+- Clear borders.
+- Professional icons.
+- Modern tables.
+- Status badges.
+- Modern charts.
+
+Avoid excessive gradients, unnecessary animations, cluttered layouts, and outdated admin templates.
+
+## 30.2 Required Screens
+
+Build complete functional screens for:
+
+1. Login.
+2. Dashboard.
+3. Customer List.
+4. Customer Profile.
+5. Customer Registration.
+6. Vehicle List.
+7. Vehicle Profile.
+8. Vehicle Registration.
+9. Appointment Calendar.
+10. Appointment Registration.
+11. Vehicle Check-In.
+12. Vehicle Inspection.
+13. Inspection Report.
+14. Job Card List.
+15. Job Card Details.
+16. Job Card Creation.
+17. Repair Estimate.
+18. Customer Approval.
+19. Service Catalog.
+20. Service Package.
+21. Technician List.
+22. Technician Profile.
+23. Technician Assignment.
+24. Technician Task Dashboard.
+25. Workshop Live Board.
+26. Service Bay Management.
+27. Spare Parts List.
+28. Spare Part Details.
+29. Spare Part Creation.
+30. Inventory Overview.
+31. Stock Ledger.
+32. Stock Transfer.
+33. Stock Issue.
+34. Purchase Requisition.
+35. Purchase Order.
+36. GRN.
+37. Supplier List.
+38. Invoice List.
+39. Invoice Details.
+40. Payment Collection.
+41. Expense Management.
+42. Insurance Claims.
+43. Warranty Management.
+44. Quality Inspection.
+45. Vehicle Delivery.
+46. Customer Portal.
+47. Reports.
+48. User Management.
+49. Role Management.
+50. Company Settings.
+
+Every screen must have real database integration.
+
+## 30.3 Table Features
+
+- Global search.
+- Filters.
+- Sorting.
+- Pagination.
+- Column visibility.
+- Export.
+- Bulk operations.
+- Status indicators.
+- Row actions.
+- Empty states.
+- Loading states.
+
+## 30.4 Form Features
+
+- Client-side and server-side validation.
+- Required field indicators.
+- Clear error messages.
+- Auto-generated document numbers.
+- Dynamic dropdowns.
+- Searchable product selectors.
+- Dependent vehicle dropdowns.
+- Save and cancel.
+- Confirmation before destructive actions.
+
+---
+
+# 31. BARCODE, QR CODE AND PRINTING
+
+Support barcode and QR code functionality.
+
+Generate:
+
+- Customer QR code.
+- Vehicle QR code.
+- Job card QR code.
+- Spare parts barcode.
+- Stock location QR code.
+- Invoice QR code where applicable.
+
+Provide printable:
+
+- Spare parts labels.
+- Vehicle check-in slips.
+- Job cards.
+- Inspection reports.
+- Repair estimates.
+- Stock issue slips.
+- Purchase orders.
+- GST invoices.
+- Payment receipts.
+- Delivery receipts.
+
+Allow thermal printer-friendly formats where applicable.
+
+---
+
+# 32. API AND THIRD-PARTY INTEGRATIONS
+
+Create versioned REST APIs for future applications.
+
+Potential integrations:
+
+- Customer mobile application.
+- Mechanic mobile application.
+- Barcode scanners.
+- WhatsApp Business API.
+- SMS providers.
+- Email services.
+- Payment gateways.
+- Accounting applications.
+- Vehicle diagnostic devices.
+- External fleet management systems.
+
+API endpoints should support:
+
+- Authentication.
+- Customer management.
+- Vehicle management.
+- Appointment booking.
+- Job card tracking.
+- Estimate approval.
+- Service reminders.
+- Invoice retrieval.
+- Payment status.
+- Spare parts lookup.
+- Technician task updates.
+
+Use secure authentication, request validation, authorization, rate limiting, and API versioning.
+
+Do not claim external integration is functional until actual credentials and a working integration have been configured and tested.
+
+---
+
+# 33. SECURITY REQUIREMENTS
+
+Implement:
+
+- Secure authentication.
+- Password hashing.
+- CSRF protection.
+- SQL injection protection.
+- XSS protection.
+- Server-side validation.
+- Role-based access.
+- Branch-level data restrictions.
+- Secure file uploads.
+- Session management.
+- Login throttling.
+- Audit logs.
+- Secure API authentication.
+- Data isolation between companies.
+
+Protect customer information, vehicle documents, insurance records, and financial data.
+
+All sensitive customer documents must be stored securely and only accessible to authorized users.
+
+---
+
+# 34. PERFORMANCE AND SCALABILITY
+
+Optimize the application for real garage operations.
+
+Requirements:
+
+- Database indexing.
+- Efficient Eloquent queries.
+- Eager loading.
+- Pagination.
+- Queue processing.
+- Caching.
+- Optimized reports.
+- Background PDF generation where needed.
+- Scheduled reminders.
+- File storage optimization.
+- Database backups.
+- Error monitoring.
+
+Avoid N+1 queries.
+
+Do not load large datasets into a single page.
+
+Use asynchronous processing for bulk notifications and exports.
+
+---
+
+# 35. DEMONSTRATION DATA
+
+Create a realistic demo company.
+
+**Company Name:** ABC Automobile Care & Service Centre
+
+Business type: Multi-brand car and two-wheeler garage.
+
+Generate demo records:
+
+- 1 company.
+- 2 branches.
+- 10 employees.
+- 5 mechanics.
+- 5 service advisors.
+- 5 service bays.
+- 20 customers.
+- 30 vehicles.
+- 20 vehicle models.
+- 50 spare parts.
+- 20 services.
+- 5 service packages.
+- 10 suppliers.
+- 10 appointments.
+- 15 job cards.
+- 10 repair estimates.
+- 10 invoices.
+- 10 payments.
+- 5 insurance claims.
+- 10 service reminders.
+
+Create realistic relationships between the records.
+
+Example vehicles:
+
+- Maruti Swift.
+- Hyundai Creta.
+- Tata Nexon.
+- Mahindra Scorpio.
+- Honda City.
+- Toyota Innova.
+- Royal Enfield Classic.
+- Honda Activa.
+- TVS Jupiter.
+- Tata Ace.
+
+Use fictional customer information and clearly label demo records.
+
+Create demo users for administrator, service advisor, mechanic, inventory manager, and accountant.
+
+Document demo credentials in the installation guide. Never use demo credentials in production.
+
+---
+
+# 36. TESTING REQUIREMENTS
+
+Use PHPUnit or Pest.
+
+## 36.1 Unit Tests
+
+Test:
+
+- GST calculations.
+- Invoice calculations.
+- Discount calculations.
+- Service package pricing.
+- Spare parts valuation.
+- Inventory calculations.
+- Labour cost calculations.
+- Payment allocation.
+- Outstanding balance.
+- Service reminder calculations.
+- Job card status transitions.
+
+## 36.2 Feature Tests
+
+Test:
+
+- Customer registration.
+- Vehicle registration.
+- Appointment booking.
+- Vehicle check-in.
+- Vehicle inspection.
+- Job card creation.
+- Estimate generation.
+- Customer estimate approval.
+- Mechanic assignment.
+- Spare parts reservation.
+- Spare parts issue.
+- Spare parts return.
+- Repair completion.
+- Quality inspection.
+- Invoice generation.
+- Payment collection.
+- Refund.
+- Service reminder.
+- Insurance claim.
+- User permissions.
+
+## 36.3 Critical End-to-End Test
+
+Sim
