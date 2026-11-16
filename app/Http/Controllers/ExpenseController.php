@@ -54,3 +54,4 @@ class ExpenseController extends Controller
         return redirect()->route('expenses.index')->with('success', "Expense #{$expNumber} recorded!");
     }
 }
+

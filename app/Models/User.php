@@ -71,10 +71,52 @@ class User extends Authenticatable
     public function hasRole(string|array $roles): bool
     {
         if (!$this->role) return false;
+        $slug = $this->role->slug ?? '';
+        $name = strtolower($this->role->name ?? '');
         if (is_array($roles)) {
-            return in_array($this->role->slug, $roles);
+            return in_array($slug, $roles) || in_array($name, $roles);
         }
-        return $this->role->slug === $roles;
+        return $slug === $roles || $name === $roles;
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(['super_admin', 'admin', 'Super Administrator']);
+    }
+
+    public function isManager(): bool
+    {
+        return $this->hasRole(['workshop_manager', 'manager', 'super_admin', 'admin', 'Workshop Manager', 'Super Administrator']);
+    }
+
+    public function isAdvisor(): bool
+    {
+        return $this->hasRole(['service_advisor', 'advisor', 'Service Advisor']);
+    }
+
+    public function isMechanic(): bool
+    {
+        return $this->hasRole(['mechanic', 'technician', 'Mechanic / Technician']);
+    }
+
+    public function isInventory(): bool
+    {
+        return $this->hasRole(['inventory_manager', 'inventory', 'Inventory Manager']);
+    }
+
+    public function isAccountant(): bool
+    {
+        return $this->hasRole(['accountant', 'cashier', 'Accountant / Cashier']);
+    }
+
+    public function getRoleCategoryAttribute(): string
+    {
+        if ($this->isAdmin() || $this->isManager()) return 'management';
+        if ($this->isAdvisor()) return 'advisor';
+        if ($this->isMechanic()) return 'mechanic';
+        if ($this->isInventory()) return 'inventory';
+        if ($this->isAccountant()) return 'accountant';
+        return 'management';
     }
 
     public function hasPermission(string $permissionSlug): bool

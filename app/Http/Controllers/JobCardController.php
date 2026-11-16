@@ -268,3 +268,4 @@ class JobCardController extends Controller
         return view('job_cards.print_gate_pass', compact('jobCard'));
     }
 }
+

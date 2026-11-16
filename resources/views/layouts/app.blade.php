@@ -39,8 +39,8 @@
                     <i data-lucide="wrench" class="w-5 h-5"></i>
                 </div>
                 <div>
-                    <h1 class="text-base font-bold text-white tracking-tight leading-none">AUTO CARE ERP</h1>
-                    <span class="text-xs text-blue-400 font-medium">Garage Management</span>
+                    <h1 class="text-base font-bold text-white tracking-tight leading-none">WebotApp AutoERP</h1>
+                    <span class="text-xs text-blue-400 font-medium">Garage Management Suite</span>
                 </div>
             </a>
             <button @click="sidebarOpen = false" class="lg:hidden p-1 text-slate-400 hover:text-white">
@@ -62,84 +62,137 @@
 
         <!-- Navigation Links -->
         <nav class="flex-1 overflow-y-auto px-3 py-4 space-y-6 text-sm">
-            <!-- Core -->
+            @php
+                $user = auth()->user();
+                $isMgmt = $user ? $user->isManager() : true;
+                $isAdvisor = $user ? $user->isAdvisor() : false;
+                $isMechanic = $user ? $user->isMechanic() : false;
+                $isInventory = $user ? $user->isInventory() : false;
+                $isAccountant = $user ? $user->isAccountant() : false;
+            @endphp
+
+            <!-- Core Overview -->
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Overview</div>
                 <div class="space-y-1">
                     <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('dashboard') ? 'bg-blue-600 text-white font-medium shadow-sm' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                        <span>Dashboard</span>
+                        <span>
+                            @if($isMechanic) Mechanic Workbench
+                            @elseif($isInventory) Inventory Hub
+                            @elseif($isAccountant) Financial Dashboard
+                            @elseif($isAdvisor) Advisor Dashboard
+                            @else Executive Dashboard
+                            @endif
+                        </span>
                     </a>
+                    @if($isMgmt || $isAdvisor || $isMechanic)
                     <a href="{{ route('workshop.board') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('workshop.*') ? 'bg-blue-600 text-white font-medium shadow-sm' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="kanban" class="w-4 h-4"></i>
                         <span>Workshop Floor Board</span>
                         <span class="ml-auto px-1.5 py-0.5 text-[10px] bg-amber-500/20 text-amber-300 rounded font-bold">Live</span>
                     </a>
+                    @endif
                 </div>
             </div>
 
             <!-- Front Desk & Job Operations -->
+            @if($isMgmt || $isAdvisor || $isMechanic || $isAccountant)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Service Operations</div>
                 <div class="space-y-1">
+                    @if($isMgmt || $isAdvisor)
                     <a href="{{ route('appointments.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('appointments.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="calendar" class="w-4 h-4"></i>
                         <span>Appointments</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAdvisor || $isAccountant)
                     <a href="{{ route('customers.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('customers.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="users" class="w-4 h-4"></i>
                         <span>Customers</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAdvisor)
                     <a href="{{ route('vehicles.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('vehicles.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="car" class="w-4 h-4"></i>
                         <span>Vehicles</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAdvisor || $isMechanic)
                     <a href="{{ route('inspections.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('inspections.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="clipboard-check" class="w-4 h-4"></i>
                         <span>Vehicle Inspections</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAdvisor || $isMechanic)
                     <a href="{{ route('job-cards.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('job-cards.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="file-text" class="w-4 h-4"></i>
-                        <span>Job Cards</span>
+                        <span>{{ $isMechanic ? 'My Assigned Jobs' : 'Job Cards' }}</span>
                         <span class="ml-auto px-2 py-0.5 text-xs bg-slate-800 text-slate-300 rounded-full font-mono">{{ \App\Models\JobCard::whereNotIn('status', ['delivered', 'cancelled'])->count() }}</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAdvisor)
                     <a href="{{ route('estimates.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('estimates.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="calculator" class="w-4 h-4"></i>
                         <span>Repair Estimates</span>
                     </a>
+                    @endif
                 </div>
             </div>
+            @endif
 
             <!-- Floor & Technicians -->
+            @if($isMgmt || $isMechanic || $isAdvisor)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Workshop & Technicians</div>
                 <div class="space-y-1">
+                    @if($isMgmt)
                     <a href="{{ route('mechanics.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('mechanics.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="user-cog" class="w-4 h-4"></i>
                         <span>Mechanics & Techs</span>
                     </a>
+                    @endif
+
                     <a href="{{ route('services.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('services.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="settings-2" class="w-4 h-4"></i>
                         <span>Service Catalog</span>
                     </a>
+
+                    @if($isMgmt || $isAdvisor)
                     <a href="{{ route('packages.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('packages.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="package" class="w-4 h-4"></i>
                         <span>Service Packages</span>
                     </a>
+                    @endif
+
                     <a href="{{ route('quality.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('quality.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="shield-check" class="w-4 h-4"></i>
                         <span>Quality Control (QC)</span>
                     </a>
                 </div>
             </div>
+            @endif
 
             <!-- Spare Parts & Inventory -->
+            @if($isMgmt || $isInventory || $isMechanic)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Spare Parts & Inventory</div>
                 <div class="space-y-1">
-                    <a href="{{ route('inventory.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('inventory.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
+                    <a href="{{ route('inventory.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('inventory.index') || request()->routeIs('inventory.edit') || request()->routeIs('inventory.create') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="boxes" class="w-4 h-4"></i>
                         <span>Spare Parts Master</span>
+                    </a>
+
+                    @if($isMgmt || $isInventory)
+                    <a href="{{ route('inventory.ledger') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('inventory.ledger') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
+                        <i data-lucide="history" class="w-4 h-4"></i>
+                        <span>Stock Movement Ledger</span>
                     </a>
                     <a href="{{ route('purchases.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('purchases.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="shopping-cart" class="w-4 h-4"></i>
@@ -149,10 +202,13 @@
                         <i data-lucide="truck" class="w-4 h-4"></i>
                         <span>Suppliers & Vendors</span>
                     </a>
+                    @endif
                 </div>
             </div>
+            @endif
 
             <!-- Billing, Claims & Finance -->
+            @if($isMgmt || $isAccountant || $isAdvisor)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">Billing & Finance</div>
                 <div class="space-y-1">
@@ -164,6 +220,7 @@
                         <i data-lucide="credit-card" class="w-4 h-4"></i>
                         <span>Payments Received</span>
                     </a>
+                    @if($isMgmt || $isAccountant)
                     <a href="{{ route('insurance.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('insurance.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="shield" class="w-4 h-4"></i>
                         <span>Insurance Claims</span>
@@ -172,38 +229,51 @@
                         <i data-lucide="wallet" class="w-4 h-4"></i>
                         <span>Expenses</span>
                     </a>
+                    @endif
                 </div>
             </div>
+            @endif
 
             <!-- CRM & Analytics -->
+            @if($isMgmt || $isAdvisor || $isAccountant)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">CRM & Analytics</div>
                 <div class="space-y-1">
+                    @if($isMgmt || $isAdvisor)
                     <a href="{{ route('crm.reminders') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('crm.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="bell-ring" class="w-4 h-4"></i>
                         <span>Service Reminders</span>
                     </a>
+                    @endif
+
+                    @if($isMgmt || $isAccountant)
                     <a href="{{ route('reports.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('reports.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
                         <span>Reports & GST Analytics</span>
                     </a>
+                    @endif
                 </div>
             </div>
+            @endif
 
             <!-- Admin & Settings -->
+            @if($isMgmt)
             <div>
                 <div class="px-3 text-[11px] font-semibold uppercase tracking-wider text-slate-400 mb-2">System</div>
                 <div class="space-y-1">
+                    @if($user && $user->isAdmin())
                     <a href="{{ route('users.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="shield-alert" class="w-4 h-4"></i>
                         <span>Users & RBAC Roles</span>
                     </a>
+                    @endif
                     <a href="{{ route('settings.index') }}" class="flex items-center gap-3 px-3 py-2 rounded-lg transition {{ request()->routeIs('settings.*') ? 'bg-blue-600 text-white font-medium' : 'hover:bg-slate-800/70 text-slate-300' }}">
                         <i data-lucide="sliders" class="w-4 h-4"></i>
                         <span>Workshop Settings</span>
                     </a>
                 </div>
             </div>
+            @endif
         </nav>
 
         <!-- Current User Profile Footer -->
@@ -256,25 +326,63 @@
                         <i data-lucide="chevron-down" class="w-3.5 h-3.5"></i>
                     </button>
                     <div x-show="open" x-cloak class="absolute right-0 mt-2 w-56 bg-white border border-slate-200 rounded-xl shadow-xl py-2 z-50">
-                        <a href="{{ route('job-cards.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="file-plus" class="w-4 h-4 text-blue-600"></i> Create Job Card
-                        </a>
-                        <a href="{{ route('appointments.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="calendar-plus" class="w-4 h-4 text-indigo-600"></i> Book Appointment
-                        </a>
-                        <a href="{{ route('customers.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="user-plus" class="w-4 h-4 text-emerald-600"></i> Register Customer
-                        </a>
-                        <a href="{{ route('vehicles.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="car" class="w-4 h-4 text-purple-600"></i> Add Vehicle
-                        </a>
-                        <div class="border-t border-slate-100 my-1"></div>
-                        <a href="{{ route('estimates.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="calculator" class="w-4 h-4 text-amber-600"></i> New Estimate
-                        </a>
-                        <a href="{{ route('invoices.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
-                            <i data-lucide="receipt" class="w-4 h-4 text-teal-600"></i> Create Invoice
-                        </a>
+                        @if($isMechanic)
+                            <a href="{{ route('workshop.board') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="play-circle" class="w-4 h-4 text-emerald-600"></i> Workshop Floor Board
+                            </a>
+                            <a href="{{ route('quality.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i> New Quality Check
+                            </a>
+                            <a href="{{ route('inventory.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="boxes" class="w-4 h-4 text-amber-600"></i> Request Spare Part
+                            </a>
+                        @elseif($isInventory)
+                            <a href="{{ route('inventory.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="package-plus" class="w-4 h-4 text-blue-600"></i> Add Spare Part
+                            </a>
+                            <a href="{{ route('purchases.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="shopping-cart" class="w-4 h-4 text-emerald-600"></i> New Purchase Order
+                            </a>
+                            <a href="{{ route('suppliers.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="truck" class="w-4 h-4 text-purple-600"></i> Register Supplier
+                            </a>
+                            <a href="{{ route('inventory.ledger') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="history" class="w-4 h-4 text-indigo-600"></i> Stock Audit Ledger
+                            </a>
+                        @elseif($isAccountant)
+                            <a href="{{ route('invoices.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="receipt" class="w-4 h-4 text-blue-600"></i> Generate GST Invoice
+                            </a>
+                            <a href="{{ route('payments.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="credit-card" class="w-4 h-4 text-emerald-600"></i> Collect Payment
+                            </a>
+                            <a href="{{ route('expenses.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="wallet" class="w-4 h-4 text-rose-600"></i> Record Expense
+                            </a>
+                            <a href="{{ route('reports.index') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="file-spreadsheet" class="w-4 h-4 text-amber-600"></i> GSTR-1 Tax Report
+                            </a>
+                        @else
+                            <a href="{{ route('job-cards.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="file-plus" class="w-4 h-4 text-blue-600"></i> Create Job Card
+                            </a>
+                            <a href="{{ route('appointments.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="calendar-plus" class="w-4 h-4 text-indigo-600"></i> Book Appointment
+                            </a>
+                            <a href="{{ route('customers.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="user-plus" class="w-4 h-4 text-emerald-600"></i> Register Customer
+                            </a>
+                            <a href="{{ route('vehicles.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="car" class="w-4 h-4 text-purple-600"></i> Add Vehicle
+                            </a>
+                            <div class="border-t border-slate-100 my-1"></div>
+                            <a href="{{ route('estimates.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="calculator" class="w-4 h-4 text-amber-600"></i> New Estimate
+                            </a>
+                            <a href="{{ route('invoices.create') }}" class="flex items-center gap-2.5 px-4 py-2 text-xs text-slate-700 hover:bg-blue-50 hover:text-blue-700 font-medium">
+                                <i data-lucide="receipt" class="w-4 h-4 text-teal-600"></i> Create Invoice
+                            </a>
+                        @endif
                     </div>
                 </div>
 
@@ -318,3 +426,4 @@
     @stack('scripts')
 </body>
 </html>
+

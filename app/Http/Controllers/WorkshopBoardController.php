@@ -43,3 +43,4 @@ class WorkshopBoardController extends Controller
         return view('workshop.board', compact('serviceBays', 'kanbanColumns', 'mechanics'));
     }
 }
+

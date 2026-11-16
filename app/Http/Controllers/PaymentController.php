@@ -65,3 +65,4 @@ class PaymentController extends Controller
         return view('payments.receipt', compact('payment'));
     }
 }
+

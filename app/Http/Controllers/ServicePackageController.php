@@ -35,3 +35,4 @@ class ServicePackageController extends Controller
         return back()->with('success', "Service Package '{$pkg->name}' created successfully!");
     }
 }
+

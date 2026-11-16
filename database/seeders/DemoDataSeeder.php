@@ -935,3 +935,4 @@ class DemoDataSeeder extends Seeder
         SystemSetting::set('invoice_footer_note', 'Thank you for choosing ABC Automobile Care! Drive Safe.', $mainBranch->id);
     }
 }
+

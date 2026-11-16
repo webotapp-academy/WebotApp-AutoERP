@@ -76,3 +76,4 @@ class QualityController extends Controller
         }
     }
 }
+

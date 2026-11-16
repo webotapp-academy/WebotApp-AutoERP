@@ -123,3 +123,4 @@ return new class extends Migration
         Schema::dropIfExists('spare_part_categories');
     }
 };
+

@@ -17,3 +17,4 @@ class Department extends Model
         return $this->belongsTo(Branch::class);
     }
 }
+

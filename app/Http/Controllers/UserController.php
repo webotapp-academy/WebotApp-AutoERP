@@ -60,3 +60,4 @@ class UserController extends Controller
         return back()->with('success', "User '{$user->name}' created and assigned role!");
     }
 }
+

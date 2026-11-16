@@ -61,3 +61,4 @@ class CrmController extends Controller
         return back()->with('success', 'Service reminder scheduled successfully!');
     }
 }
+

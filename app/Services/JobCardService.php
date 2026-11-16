@@ -90,3 +90,4 @@ class JobCardService
         return sprintf("JC-%s-%04d", $year, $count);
     }
 }
+

@@ -32,3 +32,4 @@ class JobCardPart extends Model
         return $this->belongsTo(SparePart::class);
     }
 }
+

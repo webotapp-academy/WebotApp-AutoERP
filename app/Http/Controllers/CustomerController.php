@@ -107,3 +107,4 @@ class CustomerController extends Controller
         return redirect()->route('customers.show', $customer->id)->with('success', 'Customer profile updated successfully!');
     }
 }
+

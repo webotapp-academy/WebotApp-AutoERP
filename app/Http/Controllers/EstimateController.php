@@ -127,3 +127,4 @@ class EstimateController extends Controller
         return view('estimates.print', compact('estimate'));
     }
 }
+

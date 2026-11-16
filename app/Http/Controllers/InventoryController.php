@@ -151,3 +151,4 @@ class InventoryController extends Controller
         return view('inventory.ledger', compact('sparePart', 'ledgers'));
     }
 }
+

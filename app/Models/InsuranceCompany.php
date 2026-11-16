@@ -17,3 +17,4 @@ class InsuranceCompany extends Model
         return $this->hasMany(InsuranceClaim::class);
     }
 }
+

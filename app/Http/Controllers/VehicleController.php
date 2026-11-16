@@ -125,3 +125,4 @@ class VehicleController extends Controller
         return redirect()->route('vehicles.show', $vehicle->id)->with('success', 'Vehicle updated successfully!');
     }
 }
+

@@ -27,3 +27,4 @@ class ServiceReminder extends Model
         return $this->belongsTo(Customer::class);
     }
 }
+

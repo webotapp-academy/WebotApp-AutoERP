@@ -26,3 +26,4 @@ class RepairEstimateItem extends Model
         return $this->belongsTo(RepairEstimate::class);
     }
 }
+

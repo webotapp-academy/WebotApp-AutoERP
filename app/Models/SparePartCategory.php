@@ -17,3 +17,4 @@ class SparePartCategory extends Model
         return $this->hasMany(SparePart::class, 'category_id');
     }
 }
+

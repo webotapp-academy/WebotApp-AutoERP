@@ -77,3 +77,4 @@ class Vehicle extends Model
         return trim("{$brand} {$model} ({$this->registration_number})");
     }
 }
+

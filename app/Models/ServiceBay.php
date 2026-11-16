@@ -23,3 +23,4 @@ class ServiceBay extends Model
         return $this->hasMany(JobCard::class)->whereNotIn('status', ['delivered', 'cancelled']);
     }
 }
+

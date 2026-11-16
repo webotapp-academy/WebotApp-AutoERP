@@ -48,3 +48,4 @@ class SparePart extends Model
         return $this->current_stock <= $this->min_stock_alert;
     }
 }
+

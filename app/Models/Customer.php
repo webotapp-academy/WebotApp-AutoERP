@@ -58,3 +58,4 @@ class Customer extends Model
         return $this->hasMany(Appointment::class);
     }
 }
+

@@ -56,3 +56,4 @@ class InsuranceController extends Controller
         return redirect()->route('insurance.index')->with('success', "Insurance Claim #{$claimNumber} registered!");
     }
 }
+

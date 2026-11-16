@@ -108,3 +108,4 @@ class InspectionController extends Controller
         return view('inspections.show', compact('inspection'));
     }
 }
+

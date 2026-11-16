@@ -52,3 +52,4 @@ class ServiceCatalogController extends Controller
         return back()->with('success', "Service operation '{$validated['name']}' added to catalog!");
     }
 }
+

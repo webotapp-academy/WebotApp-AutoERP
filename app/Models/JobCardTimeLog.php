@@ -33,3 +33,4 @@ class JobCardTimeLog extends Model
         return $this->belongsTo(User::class, 'mechanic_id');
     }
 }
+

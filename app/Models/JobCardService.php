@@ -42,3 +42,4 @@ class JobCardService extends Model
         return $this->hasMany(JobCardTimeLog::class);
     }
 }
+

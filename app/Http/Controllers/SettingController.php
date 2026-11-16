@@ -64,3 +64,4 @@ class SettingController extends Controller
         return back()->with('success', 'Workshop settings and GST configurations updated successfully!');
     }
 }
+

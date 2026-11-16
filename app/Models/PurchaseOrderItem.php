@@ -31,3 +31,4 @@ class PurchaseOrderItem extends Model
         return $this->belongsTo(SparePart::class);
     }
 }
+

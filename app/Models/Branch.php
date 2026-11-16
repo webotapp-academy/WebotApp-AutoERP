@@ -38,3 +38,4 @@ class Branch extends Model
         return $this->hasMany(Appointment::class);
     }
 }
+

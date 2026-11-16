@@ -28,3 +28,4 @@ class CustomerFeedback extends Model
         return $this->belongsTo(JobCard::class);
     }
 }
+

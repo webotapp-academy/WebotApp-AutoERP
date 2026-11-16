@@ -17,3 +17,4 @@ class EmployeeSkill extends Model
         return $this->belongsTo(Employee::class);
     }
 }
+

@@ -51,3 +51,4 @@ class MechanicController extends Controller
         return back()->with('success', "Timer stopped. Total duration: {$timeLog->duration_minutes} minutes.");
     }
 }
+

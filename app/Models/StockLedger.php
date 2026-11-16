@@ -32,4 +32,10 @@ class StockLedger extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    public function creator(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
 }
+

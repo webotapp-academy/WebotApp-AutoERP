@@ -63,3 +63,4 @@ return new class extends Migration
         Schema::dropIfExists('service_categories');
     }
 };
+

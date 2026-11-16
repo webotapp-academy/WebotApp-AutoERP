@@ -44,11 +44,51 @@ class AuthenticationAndRoleAccessTest extends TestCase
         }
     }
 
-    public function test_quick_one_click_demo_login_works(): void
+    public function test_each_role_sees_tailored_role_specific_dashboard(): void
     {
-        $response = $this->get(route('quick-login', 'admin@automobile.com'));
-        $response->assertRedirect(route('dashboard'));
-        $this->assertAuthenticated();
+        // 1. Mechanic
+        $mechanic = User::where('email', 'mechanic@automobile.com')->first();
+        $this->actingAs($mechanic);
+        $resMech = $this->get('/dashboard');
+        $resMech->assertStatus(200);
+        $resMech->assertSee('Mechanic Workbench');
+        $resMech->assertSee('My Assigned Repair Work Orders');
+        $resMech->assertDontSee('GST Output Tax Breakdown');
+
+        // 2. Inventory Manager
+        $inventory = User::where('email', 'inventory@automobile.com')->first();
+        $this->actingAs($inventory);
+        $resInv = $this->get('/dashboard');
+        $resInv->assertStatus(200);
+        $resInv->assertSee('Inventory Hub');
+        $resInv->assertSee('Critical Low Stock Items');
+        $resInv->assertDontSee('Mechanic Workbench');
+
+        // 3. Accountant
+        $accountant = User::where('email', 'accountant@automobile.com')->first();
+        $this->actingAs($accountant);
+        $resAcct = $this->get('/dashboard');
+        $resAcct->assertStatus(200);
+        $resAcct->assertSee('Financial Dashboard');
+        $resAcct->assertSee('GST Output Tax Breakdown');
+        $resAcct->assertDontSee('Mechanic Workbench');
+
+        // 4. Service Advisor
+        $advisor = User::where('email', 'advisor@automobile.com')->first();
+        $this->actingAs($advisor);
+        $resAdv = $this->get('/dashboard');
+        $resAdv->assertStatus(200);
+        $resAdv->assertSee('Service Advisory Desk');
+        $resAdv->assertSee("Today's Booked Appointments", false);
+        $resAdv->assertDontSee('Critical Low Stock Items');
+
+        // 5. Admin
+        $admin = User::where('email', 'admin@automobile.com')->first();
+        $this->actingAs($admin);
+        $resAdmin = $this->get('/dashboard');
+        $resAdmin->assertStatus(200);
+        $resAdmin->assertSee('Workshop Operations Executive Dashboard');
+        $resAdmin->assertSee('Service Bay Live Floor');
     }
 
     public function test_key_erp_modules_render_successfully(): void
@@ -89,3 +129,4 @@ class AuthenticationAndRoleAccessTest extends TestCase
         }
     }
 }
+

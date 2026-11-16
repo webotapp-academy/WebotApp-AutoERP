@@ -29,3 +29,4 @@ class ServicePackage extends Model
         return $this->hasMany(ServicePackageItem::class);
     }
 }
+

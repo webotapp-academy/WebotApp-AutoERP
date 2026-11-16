@@ -103,3 +103,4 @@ class PurchaseController extends Controller
         return back()->with('success', "Purchase Order #{$purchaseOrder->po_number} marked as Received. Stock balances incremented in inventory!");
     }
 }
+

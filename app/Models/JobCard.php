@@ -101,3 +101,4 @@ class JobCard extends Model
         $this->save();
     }
 }
+

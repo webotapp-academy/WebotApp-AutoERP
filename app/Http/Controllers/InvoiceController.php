@@ -144,3 +144,4 @@ class InvoiceController extends Controller
         return view('invoices.print', compact('invoice'));
     }
 }
+

@@ -75,3 +75,4 @@ class GstCalculationTest extends TestCase
         $this->assertEquals(25600.00, $result['grand_total']);
     }
 }
+
