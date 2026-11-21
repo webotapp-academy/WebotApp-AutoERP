@@ -52,6 +52,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class);
 
     // Vehicles
+    Route::get('/vehicles/search', [VehicleController::class, 'search'])->name('vehicles.search');
     Route::get('/vehicles/get-models', [VehicleController::class, 'getModels'])->name('vehicles.get-models');
     Route::get('/vehicles/by-customer/{customerId}', [VehicleController::class, 'byCustomer'])->name('vehicles.by-customer');
     Route::resource('vehicles', VehicleController::class);

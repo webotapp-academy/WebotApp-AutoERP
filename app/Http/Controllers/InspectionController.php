@@ -23,7 +23,25 @@ class InspectionController extends Controller
     {
         $selectedVehicleId = $request->vehicle_id;
         $vehicles = Vehicle::with(['brand', 'model', 'customer'])->orderBy('registration_number')->get();
-        return view('inspections.create', compact('vehicles', 'selectedVehicleId'));
+        $selectedVehicle = null;
+        if ($selectedVehicleId) {
+            $selectedVehicle = Vehicle::with(['brand', 'model', 'customer'])->find($selectedVehicleId);
+        }
+
+        $selectedVehicleData = $selectedVehicle ? [
+            'id' => $selectedVehicle->id,
+            'registration_number' => $selectedVehicle->registration_number,
+            'brand' => $selectedVehicle->brand->name ?? '',
+            'model' => $selectedVehicle->model->name ?? '',
+            'customer_name' => $selectedVehicle->customer ? $selectedVehicle->customer->full_name : 'No Owner',
+            'customer_phone' => $selectedVehicle->customer->phone ?? '',
+            'current_odometer' => (int)($selectedVehicle->current_odometer ?? 0),
+            'fuel_type' => $selectedVehicle->fuel_type ?? 'Petrol',
+        ] : null;
+
+        $initialOdometer = old('odometer_reading', $selectedVehicle->current_odometer ?? 25000);
+
+        return view('inspections.create', compact('vehicles', 'selectedVehicleId', 'selectedVehicle', 'selectedVehicleData', 'initialOdometer'));
     }
 
     public function store(Request $request)

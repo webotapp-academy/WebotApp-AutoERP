@@ -209,4 +209,28 @@ class EndToEndWorkshopFlowTest extends TestCase
             'fuel_type' => 'Electric',
         ]);
     }
+
+    public function test_vehicle_ajax_search_and_inspection_create_page(): void
+    {
+        $admin = User::where('email', 'admin@automobile.com')->first();
+        $this->actingAs($admin);
+
+        // 1. Visit inspections create page
+        $response = $this->get(route('inspections.create'));
+        $response->assertStatus(200);
+        $response->assertSee('Select Vehicle For Check-In');
+        $response->assertSee('Switch to Dropdown List');
+        $response->assertSee('searchVehicles()');
+
+        // 2. Perform AJAX search for vehicle
+        $vehicle = Vehicle::first();
+        $this->assertNotNull($vehicle);
+
+        $searchResp = $this->getJson(route('vehicles.search', ['q' => substr($vehicle->registration_number, 0, 4)]));
+        $searchResp->assertStatus(200);
+        $searchResp->assertJsonFragment([
+            'id' => $vehicle->id,
+            'registration_number' => $vehicle->registration_number,
+        ]);
+    }
 }

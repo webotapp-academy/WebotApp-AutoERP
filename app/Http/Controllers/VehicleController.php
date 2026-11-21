@@ -39,6 +39,64 @@ class VehicleController extends Controller
         return view('vehicles.index', compact('vehicles', 'vehicleTypes'));
     }
 
+    public function search(Request $request)
+    {
+        $query = trim($request->get('q', ''));
+        $vehicles = Vehicle::with(['brand', 'model', 'customer'])
+            ->when($query, function ($q) use ($query) {
+                $q->where(function ($sub) use ($query) {
+                    $sub->where('registration_number', 'like', "%{$query}%")
+                        ->orWhere('vin_chassis_number', 'like', "%{$query}%")
+                        ->orWhereHas('customer', function ($cq) use ($query) {
+                            $cq->where('first_name', 'like', "%{$query}%")
+                               ->orWhere('last_name', 'like', "%{$query}%")
+                               ->orWhere('phone', 'like', "%{$query}%");
+                        })
+                        ->orWhereHas('brand', function ($bq) use ($query) {
+                            $bq->where('name', 'like', "%{$query}%");
+                        })
+                        ->orWhereHas('model', function ($mq) use ($query) {
+                            $mq->where('name', 'like', "%{$query}%");
+                        });
+                });
+            })
+            ->orderBy('registration_number')
+            ->take(25)
+            ->get();
+
+        return response()->json($vehicles->map(function ($v) {
+            return [
+                'id' => $v->id,
+                'registration_number' => $v->registration_number,
+                'brand' => $v->brand->name ?? '',
+                'model' => $v->model->name ?? '',
+                'customer_name' => $v->customer ? $v->customer->full_name : 'No Owner',
+                'customer_phone' => $v->customer->phone ?? '',
+                'fuel_type' => $v->fuel_type ?? 'Petrol',
+                'current_odometer' => (int)($v->current_odometer ?? 0),
+                'display' => "{$v->registration_number} - " . ($v->brand->name ?? '') . " " . ($v->model->name ?? '') . ($v->customer ? " (Owner: {$v->customer->full_name} • {$v->customer->phone})" : ''),
+            ];
+        }));
+    }
+
+    public function byCustomer($customerId)
+    {
+        $vehicles = Vehicle::with(['brand', 'model'])
+            ->where('customer_id', $customerId)
+            ->orderBy('registration_number')
+            ->get();
+
+        return response()->json($vehicles);
+    }
+
+    public function getModels(Request $request)
+    {
+        $brandId = $request->brand_id;
+        $models = VehicleModel::where('brand_id', $brandId)->orderBy('name')->get();
+
+        return response()->json($models);
+    }
+
     public function create(Request $request)
     {
         $selectedCustomerId = $request->query('customer_id');
