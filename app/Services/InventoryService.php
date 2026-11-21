@@ -58,7 +58,7 @@ class InventoryService
     /**
      * Return issued part from job card back to inventory.
      */
-    public function returnPartFromJobCard(JobCardPart $jobCardPart, int $userId, int $quantity = null): bool
+    public function returnPartFromJobCard(JobCardPart $jobCardPart, int $userId, ?int $quantity = null): bool
     {
         return DB::transaction(function () use ($jobCardPart, $userId, $quantity) {
             $returnQty = $quantity ?? $jobCardPart->quantity;

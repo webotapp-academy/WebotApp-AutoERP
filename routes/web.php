@@ -67,12 +67,17 @@ Route::middleware('auth')->group(function () {
     // Job Cards Lifecycle
     Route::resource('job-cards', JobCardController::class);
     Route::post('/job-cards/{jobCard}/status', [JobCardController::class, 'updateStatus'])->name('job-cards.status');
+    Route::post('/job-cards/{jobCard}/update-status', [JobCardController::class, 'updateStatus'])->name('job-cards.update-status');
     Route::post('/job-cards/{jobCard}/services', [JobCardController::class, 'addService'])->name('job-cards.add-service');
-    Route::post('/job-cards/{jobCard}/parts', [JobCardController::class, 'issuePart'])->name('job-cards.issue-part');
-    Route::post('/job-cards/{jobCard}/parts/{partItem}/return', [JobCardController::class, 'returnPart'])->name('job-cards.return-part');
+    Route::post('/job-cards/{jobCard}/parts', [JobCardController::class, 'addPart'])->name('job-cards.add-part');
+    Route::post('/job-card-parts/{jobCardPart}/issue', [JobCardController::class, 'issuePart'])->name('job-cards.issue-part');
+    Route::post('/job-card-parts/{jobCardPart}/return', [JobCardController::class, 'returnPart'])->name('job-cards.return-part');
+    Route::post('/job-cards/{jobCard}/invoice', [JobCardController::class, 'createInvoice'])->name('job-cards.create-invoice');
     Route::post('/job-cards/{jobCard}/time-logs', [JobCardController::class, 'logTime'])->name('job-cards.log-time');
     Route::get('/job-cards/{jobCard}/print', [JobCardController::class, 'printWorkOrder'])->name('job-cards.print');
+    Route::get('/job-cards/{jobCard}/print-work-order', [JobCardController::class, 'printWorkOrder'])->name('job-cards.print-work-order');
     Route::get('/job-cards/{jobCard}/gate-pass', [JobCardController::class, 'printGatePass'])->name('job-cards.gate-pass');
+    Route::get('/job-cards/{jobCard}/print-gate-pass', [JobCardController::class, 'printGatePass'])->name('job-cards.print-gate-pass');
 
     // Estimates
     Route::resource('estimates', EstimateController::class);

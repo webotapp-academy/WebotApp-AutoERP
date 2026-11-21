@@ -289,7 +289,7 @@
                         </div>
                         <div class="flex items-center gap-3">
                             <span class="font-bold text-slate-800">{{ $req->quantity }} pcs</span>
-                            <form action="{{ route('job-cards.issue-part', $req->job_card_id) }}" method="POST">
+                            <form action="{{ route('job-cards.issue-part', $req->id) }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="spare_part_id" value="{{ $req->spare_part_id }}">
                                 <input type="hidden" name="quantity" value="{{ $req->quantity }}">
