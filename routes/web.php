@@ -104,6 +104,11 @@ Route::middleware('auth')->group(function () {
 
     // Workshop Mechanics
     Route::get('/mechanics', [MechanicController::class, 'index'])->name('mechanics.index');
+    Route::post('/mechanics', [MechanicController::class, 'store'])->name('mechanics.store');
+    Route::put('/mechanics/{mechanic}', [MechanicController::class, 'update'])->name('mechanics.update');
+    Route::delete('/mechanics/{mechanic}', [MechanicController::class, 'destroy'])->name('mechanics.destroy');
+    Route::post('/mechanics/start-timer', [MechanicController::class, 'startTimer'])->name('mechanics.start-timer');
+    Route::post('/mechanics/{timeLog}/stop-timer', [MechanicController::class, 'stopTimer'])->name('mechanics.stop-timer');
 
     // Services Catalog & Packages
     Route::get('/services', [ServiceCatalogController::class, 'index'])->name('services.index');

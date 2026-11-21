@@ -264,4 +264,62 @@ class EndToEndWorkshopFlowTest extends TestCase
             'status' => 'available',
         ]);
     }
+
+    public function test_mechanics_crud_lifecycle(): void
+    {
+        $admin = User::where('email', 'admin@automobile.com')->first();
+        $this->actingAs($admin);
+
+        // 1. Visit mechanics index
+        $response = $this->get(route('mechanics.index'));
+        $response->assertStatus(200);
+        $response->assertSee('Add Technician');
+
+        // 2. Create a new mechanic
+        $randomNum = rand(1000, 9999);
+        $email = "technician.{$randomNum}@automobile.com";
+        $storeData = [
+            'name' => 'Sunil Shinde',
+            'email' => $email,
+            'phone' => '98200' . rand(10000, 99999),
+            'password' => 'secret123',
+            'designation' => 'AC & Climate Control Specialist',
+            'hourly_rate' => 450,
+            'status' => 'active',
+        ];
+
+        $storeResp = $this->post(route('mechanics.store'), $storeData);
+        $storeResp->assertRedirect(route('mechanics.index'));
+
+        $createdMechanic = User::where('email', $email)->first();
+        $this->assertNotNull($createdMechanic);
+        $this->assertEquals('Sunil Shinde', $createdMechanic->name);
+        $this->assertNotNull($createdMechanic->employee);
+        $this->assertEquals(450.00, (float)$createdMechanic->employee->hourly_rate);
+
+        // 3. Update the mechanic
+        $updateData = [
+            'name' => 'Sunil K. Shinde',
+            'email' => $email,
+            'phone' => '9820099887',
+            'designation' => 'Master AC & Thermal Diagnostics Lead',
+            'hourly_rate' => 520,
+            'status' => 'on_leave',
+        ];
+
+        $updateResp = $this->put(route('mechanics.update', $createdMechanic->id), $updateData);
+        $updateResp->assertRedirect(route('mechanics.index'));
+
+        $freshMechanic = $createdMechanic->fresh();
+        $this->assertEquals('Sunil K. Shinde', $freshMechanic->name);
+        $this->assertEquals(520.00, (float)$freshMechanic->employee->hourly_rate);
+        $this->assertEquals('on_leave', $freshMechanic->employee->status);
+
+        // 4. Delete the mechanic
+        $deleteResp = $this->delete(route('mechanics.destroy', $freshMechanic->id));
+        $deleteResp->assertRedirect(route('mechanics.index'));
+
+        $this->assertDatabaseMissing('users', ['id' => $freshMechanic->id]);
+        $this->assertDatabaseMissing('employees', ['user_id' => $freshMechanic->id]);
+    }
 }
