@@ -16,19 +16,19 @@
 @endsection
 
 @section('content')
-<div class="space-y-6">
+<div class="space-y-4">
 
     <!-- Greeting Banner with Role Context -->
-    <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-lg flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-xl p-4 sm:p-5 text-white shadow-md flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         <div>
             <div class="flex items-center gap-2">
-                <span class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
+                <span class="px-2 py-0.5 text-[11px] font-semibold rounded-full bg-blue-500/20 text-blue-300 border border-blue-500/30">
                     {{ $user->role->name ?? ucfirst($roleCategory) }}
                 </span>
                 <span class="text-xs text-slate-400">• {{ auth()->user()->branch->name ?? 'Main Workshop' }}</span>
             </div>
-            <h1 class="text-2xl font-bold mt-1 text-white">Welcome back, {{ $user->name }}</h1>
-            <p class="text-xs text-slate-300 mt-1">
+            <h1 class="text-xl sm:text-2xl font-bold mt-1 text-white">Welcome back, {{ $user->name }}</h1>
+            <p class="text-xs text-slate-300 mt-0.5">
                 @if($roleCategory === 'mechanic')
                     Here are your current repair assignments, lift bays, and job checklist.
                 @elseif($roleCategory === 'inventory')
@@ -42,9 +42,9 @@
                 @endif
             </p>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="text-xs text-slate-300 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 flex items-center gap-2">
-                <i data-lucide="clock" class="w-4 h-4 text-emerald-400"></i>
+        <div class="flex items-center gap-2">
+            <span class="text-xs text-slate-300 bg-slate-800/80 px-2.5 py-1 rounded-lg border border-slate-700 flex items-center gap-1.5">
+                <i data-lucide="clock" class="w-3.5 h-3.5 text-emerald-400"></i>
                 <span>{{ now()->format('l, d M Y') }}</span>
             </span>
         </div>
@@ -55,55 +55,55 @@
     {{-- ========================================================= --}}
     @if($roleCategory === 'mechanic')
         <!-- Mechanic KPI Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between kpi-card">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">My Active Jobs</p>
-                    <div class="flex items-baseline gap-2 mt-1">
-                        <span class="text-2xl font-bold text-blue-600">{{ $myAssignedJobCards->count() }}</span>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">My Active Jobs</p>
+                    <div class="flex items-baseline gap-2 mt-0.5">
+                        <span class="text-xl font-bold text-blue-600">{{ $myAssignedJobCards->count() }}</span>
                         <span class="text-xs text-slate-500">In Progress</span>
                     </div>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
-                    <i data-lucide="wrench" class="w-6 h-6"></i>
+                <div class="w-10 h-10 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                    <i data-lucide="wrench" class="w-5 h-5"></i>
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between kpi-card">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Completed This Month</p>
-                    <div class="flex items-baseline gap-2 mt-1">
-                        <span class="text-2xl font-bold text-emerald-600">{{ $myCompletedThisMonth }}</span>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Completed This Month</p>
+                    <div class="flex items-baseline gap-2 mt-0.5">
+                        <span class="text-xl font-bold text-emerald-600">{{ $myCompletedThisMonth }}</span>
                         <span class="text-xs text-slate-500">Delivered</span>
                     </div>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
-                    <i data-lucide="check-circle-2" class="w-6 h-6"></i>
+                <div class="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                    <i data-lucide="check-circle-2" class="w-5 h-5"></i>
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between kpi-card">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">Pending QC Inspection</p>
-                    <div class="flex items-baseline gap-2 mt-1">
-                        <span class="text-2xl font-bold text-amber-600">{{ $myPendingQc }}</span>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">Pending QC Inspection</p>
+                    <div class="flex items-baseline gap-2 mt-0.5">
+                        <span class="text-xl font-bold text-amber-600">{{ $myPendingQc }}</span>
                         <span class="text-xs text-slate-500">Awaiting Sign-off</span>
                     </div>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center">
-                    <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                <div class="w-10 h-10 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                    <i data-lucide="shield-alert" class="w-5 h-5"></i>
                 </div>
             </div>
 
-            <div class="bg-white p-5 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between">
+            <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm flex items-center justify-between kpi-card">
                 <div>
-                    <p class="text-xs font-semibold uppercase tracking-wider text-slate-500">My Assigned Bay</p>
-                    <div class="flex items-baseline gap-2 mt-1">
-                        <span class="text-lg font-bold text-slate-900 truncate">{{ $myAssignedBay ? $myAssignedBay->name : 'Lift Station 1' }}</span>
+                    <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">My Assigned Bay</p>
+                    <div class="flex items-baseline gap-2 mt-0.5">
+                        <span class="text-base font-bold text-slate-900 truncate">{{ $myAssignedBay ? $myAssignedBay->name : 'Lift Station 1' }}</span>
                     </div>
                 </div>
-                <div class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center">
-                    <i data-lucide="layout-grid" class="w-6 h-6"></i>
+                <div class="w-10 h-10 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center">
+                    <i data-lucide="layout-grid" class="w-5 h-5"></i>
                 </div>
             </div>
         </div>
