@@ -233,4 +233,35 @@ class EndToEndWorkshopFlowTest extends TestCase
             'registration_number' => $vehicle->registration_number,
         ]);
     }
+
+    public function test_create_service_bay_from_workshop_board(): void
+    {
+        $admin = User::where('email', 'admin@automobile.com')->first();
+        $this->actingAs($admin);
+
+        // 1. Visit workshop board
+        $response = $this->get(route('workshop.board'));
+        $response->assertStatus(200);
+        $response->assertSee('New Service Bay');
+        $response->assertSee('Add Workshop Service Bay');
+
+        // 2. Submit new bay creation
+        $bayCode = 'BAY-' . rand(10, 99);
+        $postData = [
+            'name' => 'Bay 7 - High Speed Diagnostic Test Bed',
+            'code' => $bayCode,
+            'bay_type' => 'EV Bay',
+            'status' => 'available',
+            'is_active' => 1,
+        ];
+
+        $postResp = $this->post(route('workshop.bays.store'), $postData);
+        $postResp->assertRedirect(route('workshop.board'));
+
+        $this->assertDatabaseHas('service_bays', [
+            'code' => $bayCode,
+            'name' => 'Bay 7 - High Speed Diagnostic Test Bed',
+            'status' => 'available',
+        ]);
+    }
 }

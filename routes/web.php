@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     // Workshop Live Floor & Kanban
     Route::get('/workshop/board', [WorkshopBoardController::class, 'index'])->name('workshop.board');
     Route::post('/workshop/board/status', [WorkshopBoardController::class, 'updateStatus'])->name('workshop.board.status');
+    Route::post('/workshop/bays', [WorkshopBoardController::class, 'storeBay'])->name('workshop.bays.store');
 
     // Customers
     Route::post('/customers/quick', [CustomerController::class, 'quickStore'])->name('customers.quick');
