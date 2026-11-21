@@ -34,10 +34,11 @@ class AppointmentController extends Controller
         $customers = Customer::orderBy('first_name')->get();
         $vehicles = Vehicle::with(['brand', 'model'])->orderBy('registration_number')->get();
         $serviceBays = ServiceBay::all();
+        $brands = \App\Models\VehicleBrand::orderBy('name')->get();
         $selectedCustomerId = $request->customer_id;
         $selectedVehicleId = $request->vehicle_id;
 
-        return view('appointments.create', compact('customers', 'vehicles', 'serviceBays', 'selectedCustomerId', 'selectedVehicleId'));
+        return view('appointments.create', compact('customers', 'vehicles', 'serviceBays', 'brands', 'selectedCustomerId', 'selectedVehicleId'));
     }
 
     public function store(Request $request)

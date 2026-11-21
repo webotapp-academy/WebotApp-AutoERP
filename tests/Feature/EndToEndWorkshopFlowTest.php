@@ -159,4 +159,54 @@ class EndToEndWorkshopFlowTest extends TestCase
         $this->assertNotNull($deliveredJob->delivered_at);
         $this->assertEquals($newOdometer, $vehicle->fresh()->current_odometer);
     }
+
+    public function test_quick_customer_and_vehicle_creation_from_appointments_screen(): void
+    {
+        $admin = User::where('email', 'admin@automobile.com')->first();
+        $this->actingAs($admin);
+
+        // 1. Visit appointments create page
+        $response = $this->get(route('appointments.create'));
+        $response->assertStatus(200);
+        $response->assertSee('Quick Register Customer');
+        $response->assertSee('+ New Customer');
+
+        // 2. Submit quick customer creation with vehicle
+        $postData = [
+            'first_name' => 'Kavita',
+            'last_name' => 'Mehra',
+            'phone' => '9811223344',
+            'email' => 'kavita.mehra@example.com',
+            'customer_type' => 'individual',
+            'city' => 'Pune',
+            'registration_number' => 'MH 12 AB ' . rand(1000, 9999),
+            'model_name' => 'Nexon EV',
+            'fuel_type' => 'Electric',
+        ];
+
+        $postResponse = $this->postJson(route('customers.quick'), $postData);
+        $postResponse->assertStatus(201);
+        $postResponse->assertJson([
+            'success' => true,
+            'customer' => [
+                'name' => 'Kavita Mehra',
+                'phone' => '9811223344',
+            ],
+        ]);
+
+        $createdCustomerId = $postResponse->json('customer.id');
+        $createdVehicleId = $postResponse->json('vehicle.id');
+
+        $this->assertDatabaseHas('customers', [
+            'id' => $createdCustomerId,
+            'first_name' => 'Kavita',
+            'phone' => '9811223344',
+        ]);
+
+        $this->assertDatabaseHas('vehicles', [
+            'id' => $createdVehicleId,
+            'customer_id' => $createdCustomerId,
+            'fuel_type' => 'Electric',
+        ]);
+    }
 }

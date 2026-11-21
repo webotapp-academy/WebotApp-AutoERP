@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/workshop/board/status', [WorkshopBoardController::class, 'updateStatus'])->name('workshop.board.status');
 
     // Customers
+    Route::post('/customers/quick', [CustomerController::class, 'quickStore'])->name('customers.quick');
     Route::resource('customers', CustomerController::class);
 
     // Vehicles

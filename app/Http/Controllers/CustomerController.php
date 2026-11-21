@@ -68,7 +68,120 @@ class CustomerController extends Controller
             'status' => 'active',
         ]));
 
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'customer' => $customer,
+                'message' => 'Customer profile registered successfully!',
+            ], 201);
+        }
+
+        if ($request->filled('return_to') && $request->return_to === 'appointments.create') {
+            return redirect()->route('appointments.create', ['customer_id' => $customer->id])
+                ->with('success', "Customer '{$customer->full_name}' registered successfully!");
+        }
+
         return redirect()->route('customers.show', $customer->id)->with('success', 'Customer profile registered successfully!');
+    }
+
+    public function quickStore(Request $request)
+    {
+        $validated = $request->validate([
+            'first_name' => 'required|string|max:100',
+            'last_name' => 'nullable|string|max:100',
+            'phone' => 'required|string|max:25',
+            'email' => 'nullable|email|max:150',
+            'customer_type' => 'nullable|in:individual,corporate,fleet',
+            'company_name' => 'nullable|string|max:150',
+            'city' => 'nullable|string|max:100',
+            'registration_number' => 'nullable|string|max:30|unique:vehicles,registration_number',
+            'brand_id' => 'nullable|exists:vehicle_brands,id',
+            'model_name' => 'nullable|string|max:100',
+            'fuel_type' => 'nullable|string|max:50',
+        ]);
+
+        $company = Company::first();
+        $branch = Branch::first();
+
+        $customer = Customer::create([
+            'company_id' => $company->id ?? 1,
+            'branch_id' => $branch->id ?? 1,
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'] ?? null,
+            'customer_type' => $validated['customer_type'] ?? 'individual',
+            'company_name' => $validated['company_name'] ?? null,
+            'phone' => $validated['phone'],
+            'email' => $validated['email'] ?? null,
+            'city' => $validated['city'] ?? null,
+            'outstanding_balance' => 0.00,
+            'status' => 'active',
+        ]);
+
+        $vehicle = null;
+        if (!empty($validated['registration_number'])) {
+            $brandId = $validated['brand_id'] ?? null;
+            if (!$brandId) {
+                $brand = \App\Models\VehicleBrand::first();
+                $brandId = $brand?->id;
+            }
+
+            $vehicleType = \App\Models\VehicleType::first();
+            $vehicleTypeId = $vehicleType?->id ?? 1;
+
+            $modelId = null;
+            if (!empty($validated['model_name']) && $brandId) {
+                $model = \App\Models\VehicleModel::firstOrCreate(
+                    ['name' => trim($validated['model_name']), 'brand_id' => $brandId],
+                    ['vehicle_type_id' => $vehicleTypeId]
+                );
+                $modelId = $model->id;
+            } elseif ($brandId) {
+                $model = \App\Models\VehicleModel::where('brand_id', $brandId)->first();
+                $modelId = $model?->id;
+            }
+
+            $vehicle = \App\Models\Vehicle::create([
+                'customer_id' => $customer->id,
+                'branch_id' => $branch->id ?? 1,
+                'vehicle_type_id' => $vehicleTypeId,
+                'brand_id' => $brandId,
+                'model_id' => $modelId,
+                'registration_number' => strtoupper(trim($validated['registration_number'])),
+                'fuel_type' => $validated['fuel_type'] ?? 'Petrol',
+                'model_year' => date('Y'),
+                'current_odometer' => 0,
+                'status' => 'active',
+            ]);
+
+            $vehicle->load(['brand', 'model']);
+        }
+
+        if ($request->wantsJson() || $request->ajax()) {
+            return response()->json([
+                'success' => true,
+                'customer' => [
+                    'id' => $customer->id,
+                    'name' => $customer->full_name,
+                    'phone' => $customer->phone,
+                    'email' => $customer->email,
+                ],
+                'vehicle' => $vehicle ? [
+                    'id' => $vehicle->id,
+                    'display' => $vehicle->registration_number . ' - ' . ($vehicle->brand->name ?? '') . ' ' . ($vehicle->model->name ?? ''),
+                    'registration_number' => $vehicle->registration_number,
+                ] : null,
+                'message' => "Customer '{$customer->full_name}' registered successfully!",
+            ], 201);
+        }
+
+        if ($request->filled('return_to') && $request->return_to === 'appointments.create') {
+            return redirect()->route('appointments.create', [
+                'customer_id' => $customer->id,
+                'vehicle_id' => $vehicle?->id,
+            ])->with('success', "Customer '{$customer->full_name}' registered successfully!");
+        }
+
+        return back()->with('success', "Customer '{$customer->full_name}' registered successfully!");
     }
 
     public function show(Customer $customer)

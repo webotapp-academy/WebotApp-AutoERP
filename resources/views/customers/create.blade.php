@@ -13,6 +13,9 @@
 
     <form method="POST" action="{{ route('customers.store') }}" class="bg-white rounded-2xl border border-slate-200 shadow-sm p-6 sm:p-8 space-y-6">
         @csrf
+        @if(request('return_to'))
+            <input type="hidden" name="return_to" value="{{ request('return_to') }}">
+        @endif
 
         <div class="border-b border-slate-100 pb-4">
             <h3 class="text-base font-bold text-slate-900">Customer Classification</h3>
