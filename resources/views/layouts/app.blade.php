@@ -22,29 +22,66 @@
 
     <style>
         [x-cloak] { display: none !important; }
-        body { font-family: 'Inter', sans-serif; }
+        
+        /* Global High-Density Typography Scale */
+        html { 
+            font-size: 13.5px; 
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        body { 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-size: 0.825rem;
+            line-height: 1.4;
+        }
 
         /* Compact ERP Density Styles */
-        .compact-erp main { padding: 0.75rem 1rem !important; }
-        .compact-erp .space-y-6 { margin-top: 0.75rem !important; margin-bottom: 0.75rem !important; }
-        .compact-erp table td { padding: 0.45rem 0.65rem !important; font-size: 0.8rem !important; }
-        .compact-erp table th { padding: 0.45rem 0.65rem !important; font-size: 0.7rem !important; }
-        .compact-erp .kpi-card { padding: 0.75rem 1rem !important; }
-        .compact-erp .p-5, .compact-erp .p-6 { padding: 0.85rem !important; }
-        .compact-erp .gap-4 { gap: 0.65rem !important; }
-        .compact-erp .gap-6 { gap: 0.75rem !important; }
-        .compact-erp h1 { font-size: 1.35rem !important; }
-        .compact-erp h2 { font-size: 1.15rem !important; }
-        .compact-erp h3 { font-size: 0.95rem !important; }
+        html.compact-erp, body.compact-erp {
+            font-size: 12px !important;
+        }
+        .compact-erp main { padding: 0.5rem 0.75rem !important; }
+        .compact-erp .space-y-6 > * + * { margin-top: 0.75rem !important; }
+        .compact-erp .space-y-4 > * + * { margin-top: 0.55rem !important; }
+        .compact-erp .space-y-3 > * + * { margin-top: 0.45rem !important; }
+        .compact-erp table td { padding: 0.35rem 0.5rem !important; font-size: 0.75rem !important; }
+        .compact-erp table th { padding: 0.35rem 0.5rem !important; font-size: 0.65rem !important; }
+        .compact-erp .kpi-card { padding: 0.6rem 0.75rem !important; }
+        .compact-erp .p-6 { padding: 0.75rem !important; }
+        .compact-erp .p-5 { padding: 0.65rem !important; }
+        .compact-erp .p-4 { padding: 0.55rem !important; }
+        .compact-erp .gap-6 { gap: 0.65rem !important; }
+        .compact-erp .gap-4 { gap: 0.5rem !important; }
+        .compact-erp h1 { font-size: 1.2rem !important; }
+        .compact-erp h2 { font-size: 1.05rem !important; }
+        .compact-erp h3 { font-size: 0.875rem !important; }
+        .compact-erp h4 { font-size: 0.8rem !important; }
+        .compact-erp button, 
+        .compact-erp input, 
+        .compact-erp select, 
+        .compact-erp textarea {
+            font-size: 0.75rem !important;
+        }
+        .compact-erp aside nav a {
+            padding-top: 0.35rem !important;
+            padding-bottom: 0.35rem !important;
+            font-size: 0.75rem !important;
+        }
     </style>
 </head>
 <body class="h-full flex overflow-hidden" 
       x-data="{ 
           sidebarOpen: false, 
           sidebarCollapsed: (localStorage.getItem('sidebar_collapsed') === 'true'),
-          compactMode: (localStorage.getItem('compact_mode') === 'true'),
+          compactMode: (localStorage.getItem('compact_mode') === null ? true : localStorage.getItem('compact_mode') === 'true'),
           quickActionOpen: false 
       }"
+      x-init="
+          $watch('compactMode', val => { 
+              localStorage.setItem('compact_mode', val); 
+              document.documentElement.classList.toggle('compact-erp', val); 
+          });
+          if (compactMode) document.documentElement.classList.add('compact-erp');
+      "
       :class="{ 'compact-erp': compactMode }">
 
     <!-- Mobile Sidebar Backdrop -->
